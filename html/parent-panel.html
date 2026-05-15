@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Parent Panel | School Management System</title>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/css/parent-panel.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Smart<span>School</span></span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Parent Profile Summary -->
+      <div class="parent-profile">
+        <div class="parent-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="parent-info">
+          <h4>Sarah Johnson</h4>
+          <span>Parent of Emily (Grade 5)</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#" class="nav-link active" data-section="dashboard">
+              <i class="fas fa-th-large"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="results">
+              <i class="fas fa-chart-bar"></i>
+              <span>Results</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="performance">
+              <i class="fas fa-trophy"></i>
+              <span>Performance</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="attendance">
+              <i class="fas fa-calendar-check"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="payments">
+              <i class="fas fa-credit-card"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="messages">
+              <i class="fas fa-envelope"></i>
+              <span>Messages</span>
+              <span class="badge">3</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="profile">
+              <i class="fas fa-user-cog"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Logout Button -->
+      <div class="sidebar-footer">
+        <a href="index.html" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+      <!-- Top Navbar -->
+      <header class="top-navbar" id="topNavbar">
+        <div class="top-nav-left">
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open sidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2 class="page-title" id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="top-nav-right">
+          <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-dot"></span>
+          </div>
+          <div class="user-avatar-small">
+            <i class="fas fa-user-circle"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content Wrapper -->
+      <div class="content-wrapper" id="contentWrapper">
+        <!-- Dashboard Section -->
+        <section class="dashboard-section active-section" id="dashboardSection">
+          <!-- Welcome Card -->
+          <div class="welcome-card">
+            <div class="welcome-text">
+              <h1>Welcome back, Sarah! 👋</h1>
+              <p>Here's what's happening with Emily's education today.</p>
+            </div>
+            <div class="welcome-date">
+              <i class="fas fa-calendar-alt"></i>
+              <span id="currentDate"></span>
+            </div>
+          </div>
+
+          <!-- Statistics Cards Row -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #eff6ff; color: #2563eb;">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-info">
+                <h3>92.5%</h3>
+                <p>Total Results</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="stat-info">
+                <h3>95%</h3>
+                <p>Attendance</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #fffbeb; color: #f59e0b;">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Paid</h3>
+                <p>Payment Status</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #fef2f2; color: #ef4444;">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="stat-info">
+                <h3>5</h3>
+                <p>Messages</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Results & Attendance Row -->
+          <div class="content-row">
+            <!-- Recent Results Table -->
+            <div class="card table-card">
+              <div class="card-header">
+                <h3><i class="fas fa-file-alt"></i> Recent Results</h3>
+                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+              </div>
+              <div class="table-responsive">
+                <table class="results-table">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Score</th>
+                      <th>Grade</th>
+                      <th>Term</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mathematics</td>
+                      <td>95/100</td>
+                      <td><span class="grade grade-a">A</span></td>
+                      <td>Term 2</td>
+                    </tr>
+                    <tr>
+                      <td>English</td>
+                      <td>88/100</td>
+                      <td><span class="grade grade-b">B+</span></td>
+                      <td>Term 2</td>
+                    </tr>
+                    <tr>
+                      <td>Science</td>
+                      <td>92/100</td>
+                      <td><span class="grade grade-a">A-</span></td>
+                      <td>Term 2</td>
+                    </tr>
+                    <tr>
+                      <td>History</td>
+                      <td>85/100</td>
+                      <td><span class="grade grade-b">B</span></td>
+                      <td>Term 2</td>
+                    </tr>
+                    <tr>
+                      <td>Art</td>
+                      <td>98/100</td>
+                      <td><span class="grade grade-a">A+</span></td>
+                      <td>Term 2</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Attendance Summary -->
+            <div class="card attendance-card">
+              <div class="card-header">
+                <h3><i class="fas fa-calendar-alt"></i> Attendance Summary</h3>
+                <a href="#" class="view-all">Details <i class="fas fa-arrow-right"></i></a>
+              </div>
+              <div class="attendance-chart">
+                <div class="chart-circle">
+                  <svg viewBox="0 0 120 120" class="circular-chart">
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" stroke-width="12"/>
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="#16a34a" stroke-width="12" 
+                      stroke-dasharray="298" stroke-dashoffset="15" stroke-linecap="round"
+                      transform="rotate(-90 60 60)"/>
+                  </svg>
+                  <div class="chart-percentage">95%</div>
+                </div>
+                <div class="attendance-details">
+                  <div class="attendance-item">
+                    <span class="dot present"></span>
+                    <span>Present: <strong>180 days</strong></span>
+                  </div>
+                  <div class="attendance-item">
+                    <span class="dot absent"></span>
+                    <span>Absent: <strong>8 days</strong></span>
+                  </div>
+                  <div class="attendance-item">
+                    <span class="dot late"></span>
+                    <span>Late: <strong>2 days</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications Area -->
+          <div class="card notifications-card">
+            <div class="card-header">
+              <h3><i class="fas fa-bell"></i> Recent Notifications</h3>
+              <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="notifications-list">
+              <div class="notification-item unread">
+                <div class="notif-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="notif-content">
+                  <p><strong>Parent-Teacher Meeting</strong> scheduled for Friday, March 15th at 4:00 PM.</p>
+                  <span class="notif-time">2 hours ago</span>
+                </div>
+              </div>
+              <div class="notification-item unread">
+                <div class="notif-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="notif-content">
+                  <p><strong>Term 2 Results</strong> have been published. Check your child's performance now.</p>
+                  <span class="notif-time">1 day ago</span>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notif-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="notif-content">
+                  <p><strong>Payment Confirmed:</strong> Tuition fee for Term 3 has been received successfully.</p>
+                  <span class="notif-time">3 days ago</span>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notif-icon">
+                  <i class="fas fa-bus"></i>
+                </div>
+                <div class="notif-content">
+                  <p><strong>Field Trip Notice:</strong> Science museum visit on March 20th. Permission slip required.</p>
+                  <span class="notif-time">5 days ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="/js/parent-panel.js"></script>
+</body>
+</html>

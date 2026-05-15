@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admission Application | School Management System</title>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/css/application.css">
+</head>
+<body>
+  <!-- Sticky Navbar with Logo and Hamburger Only -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span class="logo-text">Smart<span class="logo-highlight">School</span></span>
+      </a>
+      <!-- Hamburger menu button (only icon shown) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar Overlay (closes sidebar when clicked outside) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Navigation Menu -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Menu</span>
+      <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+      <li><a href="application.html" class="nav-link active">Application</a></li>
+      <li><a href="#" class="nav-link">Track Application</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-user-friends"></i> Parent Panel</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section for Application Page -->
+    <section class="application-hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">Student Admission Application</h1>
+        <p class="hero-subtitle">Begin your journey with us. Fill out the form below to apply for admission to SmartSchool.</p>
+      </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section class="application-section section-padding">
+      <div class="container">
+        <div class="form-wrapper">
+          <!-- Form Header -->
+          <div class="form-header">
+            <div class="form-header-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h2>Admission Application Form</h2>
+            <p>Please fill in all required fields marked with <span class="required-star">*</span></p>
+          </div>
+
+          <!-- Application Form -->
+          <form id="applicationForm" novalidate>
+            <!-- Row 1: Student Full Name & Age -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="studentName">Student Full Name <span class="required-star">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fas fa-user-graduate"></i>
+                  <input type="text" id="studentName" placeholder="Enter student's full name" required>
+                </div>
+                <small class="error-message" id="studentNameError"></small>
+              </div>
+              <div class="form-group">
+                <label for="studentAge">Age <span class="required-star">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fas fa-calendar-alt"></i>
+                  <input type="number" id="studentAge" placeholder="Enter age" min="3" max="25" required>
+                </div>
+                <small class="error-message" id="studentAgeError"></small>
+              </div>
+            </div>
+
+            <!-- Row 2: Gender & Class Applying For -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gender">Gender <span class="required-star">*</span></label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="fas fa-venus-mars"></i>
+                  <select id="gender" required>
+                    <option value="" disabled selected>Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <small class="error-message" id="genderError"></small>
+              </div>
+              <div class="form-group">
+                <label for="classApplying">Class Applying For <span class="required-star">*</span></label>
+                <div class="input-wrapper select-wrapper">
+                  <i class="fas fa-chalkboard"></i>
+                  <select id="classApplying" required>
+                    <option value="" disabled selected>Select class</option>
+                    <option value="grade-1">Grade 1</option>
+                    <option value="grade-2">Grade 2</option>
+                    <option value="grade-3">Grade 3</option>
+                    <option value="grade-4">Grade 4</option>
+                    <option value="grade-5">Grade 5</option>
+                    <option value="grade-6">Grade 6</option>
+                    <option value="grade-7">Grade 7</option>
+                    <option value="grade-8">Grade 8</option>
+                    <option value="grade-9">Grade 9</option>
+                    <option value="grade-10">Grade 10</option>
+                    <option value="grade-11">Grade 11</option>
+                    <option value="grade-12">Grade 12</option>
+                  </select>
+                </div>
+                <small class="error-message" id="classApplyingError"></small>
+              </div>
+            </div>
+
+            <!-- Row 3: Parent Name & Phone Number -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="parentName">Parent/Guardian Name <span class="required-star">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fas fa-user-tie"></i>
+                  <input type="text" id="parentName" placeholder="Enter parent or guardian name" required>
+                </div>
+                <small class="error-message" id="parentNameError"></small>
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number <span class="required-star">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fas fa-phone-alt"></i>
+                  <input type="tel" id="phoneNumber" placeholder="Enter phone number" required>
+                </div>
+                <small class="error-message" id="phoneNumberError"></small>
+              </div>
+            </div>
+
+            <!-- Row 4: Email Address -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label for="email">Email Address <span class="required-star">*</span></label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" id="email" placeholder="Enter email address" required>
+                </div>
+                <small class="error-message" id="emailError"></small>
+              </div>
+            </div>
+
+            <!-- Row 5: Address -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label for="address">Address <span class="required-star">*</span></label>
+                <div class="input-wrapper textarea-wrapper">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <textarea id="address" rows="3" placeholder="Enter full residential address" required></textarea>
+                </div>
+                <small class="error-message" id="addressError"></small>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-submit">
+              <i class="fas fa-paper-plane"></i> Submit Application
+            </button>
+
+            <!-- Success Message with Reference Number (hidden by default) -->
+            <div class="success-message" id="successMessage">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h3>Application Submitted Successfully!</h3>
+              <p>Your application reference number is:</p>
+              <div class="reference-number" id="referenceNumber">SS-2025-0000</div>
+              <p class="success-note">Please save this reference number to track your application status. You will also receive login credentials once your application is approved.</p>
+              <button type="button" class="btn btn-outline-primary" id="newApplicationBtn">
+                <i class="fas fa-plus"></i> Submit Another Application
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Side Info Cards -->
+        <div class="info-cards-row">
+          <div class="info-card-small">
+            <i class="fas fa-clock"></i>
+            <h4>Processing Time</h4>
+            <p>Applications are typically processed within 5-7 business days.</p>
+          </div>
+          <div class="info-card-small">
+            <i class="fas fa-phone-alt"></i>
+            <h4>Need Help?</h4>
+            <p>Call us at +1 (555) 123-4567 for assistance with your application.</p>
+          </div>
+          <div class="info-card-small">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Secure Application</h4>
+            <p>Your information is encrypted and handled with strict confidentiality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3><i class="fas fa-graduation-cap"></i> SmartSchool</h3>
+        <p>Modern education management for forward-thinking institutions.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="application.html">Application</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 789 Education Blvd, Learning City</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> admissions@smartschool.edu</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2025 SmartSchool Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="/js/application.js"></script>
+</body>
+</html>

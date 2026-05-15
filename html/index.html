@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>School Management System | Smart Education</title>
+  <!-- Font Awesome 6 icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span class="logo-text">Smart<span class="logo-highlight">School</span></span>
+      </a>
+      <!-- Hamburger icon only (no links visible) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar navigation overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Menu</span>
+      <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+      <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+      <li><a href="application.html" class="nav-link">Application</a></li>
+      <li><a href="track.html" class="nav-link">Track Application</a></li>
+      <li><a href="parent-panel.html" class="nav-link panel-link"><i class="fas fa-user-friends"></i> Parent Panel</a></li>
+      <li><a href="teacher-panel.html" class="nav-link panel-link"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a></li>
+      <li><a href="admin-panel.html" class="nav-link panel-link"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">School Management System</h1>
+        <p class="hero-subtitle">Empowering educators, students, and parents with a seamless digital experience. Manage attendance, results, payments, and communication in one intelligent platform.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary"><i class="fas fa-user-friends"></i> Parent Panel</a>
+          <a href="#" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a>
+          <a href="#" class="btn btn-accent"><i class="fas fa-user-shield"></i> Admin Panel</a>
+          <a href="#" class="btn btn-outline-light"><i class="fas fa-pen"></i> Apply Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section-padding" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Powerful Features</h2>
+          <p>Everything you need to run a modern school efficiently</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+            <h3>Results Management</h3>
+            <p>Generate report cards, analyze performance trends, and share results instantly with parents.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+            <h3>Attendance Tracking</h3>
+            <p>Real-time attendance with biometric integration and automated notifications to guardians.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+            <h3>Online Payments</h3>
+            <p>Secure fee collection, invoice generation, and payment reminders through integrated gateways.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
+            <h3>Student Performance</h3>
+            <p>Individual progress dashboards with analytics to identify strengths and improvement areas.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-chalkboard"></i></div>
+            <h3>Teacher Management</h3>
+            <p>Timetable scheduling, leave management, and professional development tracking.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-comments"></i></div>
+            <h3>Parent Communication</h3>
+            <p>Instant messaging, announcements, and parent-teacher conference scheduling.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section with animated counters -->
+    <section class="stats section-padding bg-light">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number" data-target="1850">0</span>
+            <span class="stat-label">Total Students</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="120">0</span>
+            <span class="stat-label">Total Teachers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="65">0</span>
+            <span class="stat-label">Classes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-label">Success Rate %</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us section-padding" id="about">
+      <div class="container why-us-container">
+        <div class="why-us-image">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90910e94e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Modern school building with students" loading="lazy">
+        </div>
+        <div class="why-us-content">
+          <h2>Why Choose SmartSchool?</h2>
+          <p>We combine cutting-edge technology with educational expertise to create a system that adapts to your school's unique needs.</p>
+          <ul class="why-list">
+            <li><i class="fas fa-check-circle"></i> Cloud-based access from any device</li>
+            <li><i class="fas fa-check-circle"></i> Advanced security & data encryption</li>
+            <li><i class="fas fa-check-circle"></i> 24/7 dedicated support team</li>
+            <li><i class="fas fa-check-circle"></i> Customizable dashboards and reports</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Process Section -->
+    <section class="process section-padding bg-light" id="apply">
+      <div class="container">
+        <div class="section-header">
+          <h2>Application Process</h2>
+          <p>Simple steps to join our smart education community</p>
+        </div>
+        <div class="process-steps">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Apply Online</h3>
+            <p>Fill out our secure online application form with student details.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Receive Reference</h3>
+            <p>Get a unique reference number to track your application progress.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Track Application</h3>
+            <p>Monitor status updates and document verification in real time.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>Get Credentials</h3>
+            <p>Receive login details for parent/student portal upon acceptance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section-padding" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Community Says</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"The parent portal makes it so easy to check my daughter's attendance and results. Communication with teachers has never been better."</p>
+            <h4>Sarah Johnson</h4>
+            <span>Parent</span>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"SmartSchool reduced my administrative workload significantly. I can focus more on teaching and less on paperwork."</p>
+            <h4>Michael Chen</h4>
+            <span>Teacher</span>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"Tracking my assignments and grades online keeps me organized. The mobile view is perfect for checking schedules."</p>
+            <h4>Emily Rodriguez</h4>
+            <span>Student</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section-padding" id="track">
+      <div class="container cta-content">
+        <h2>Join Our Smart School System Today</h2>
+        <p>Transform your school management experience with digital efficiency and real‑time collaboration.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-light"><i class="fas fa-pen"></i> Apply Now</a>
+          <a href="#" class="btn btn-outline-light">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3><i class="fas fa-graduation-cap"></i> SmartSchool</h3>
+        <p>Modern education management for forward-thinking institutions.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Application</a></li>
+          <li><a href="#">Track Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Education St, Learning City</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> info@smartschool.edu</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2025 SmartSchool Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Link to external JavaScript -->
+  <script src="/js/index.js"></script>
+</body>
+</html>

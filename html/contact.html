@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Contact Us | School Management System</title>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+  <!-- Sticky Navbar with Logo and Hamburger Only -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span class="logo-text">Smart<span class="logo-highlight">School</span></span>
+      </a>
+      <!-- Hamburger menu button (only icon shown) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar Overlay (closes sidebar when clicked outside) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Navigation Menu -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Menu</span>
+      <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+      <li><a href="#" class="nav-link">Application</a></li>
+      <li><a href="#" class="nav-link">Track Application</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-user-friends"></i> Parent Panel</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a></li>
+      <li><a href="#" class="nav-link panel-link"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section for Contact Page -->
+    <section class="contact-hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">Get In Touch</h1>
+        <p class="hero-subtitle">We'd love to hear from you. Reach out to our team for inquiries, support, or feedback.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section: Form + Info Cards -->
+    <section class="contact-section section-padding">
+      <div class="container contact-grid">
+        <!-- Contact Form Card -->
+        <div class="contact-form-card">
+          <div class="card-header">
+            <h2><i class="fas fa-envelope-open-text"></i> Send us a Message</h2>
+            <p>Fill out the form below and we'll respond within 24 hours.</p>
+          </div>
+          <form id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="name">Full Name <span>*</span></label>
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name" placeholder="John Doe" required>
+              </div>
+              <small class="error-message" id="nameError"></small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address <span>*</span></label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="john@example.com" required>
+              </div>
+              <small class="error-message" id="emailError"></small>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject <span>*</span></label>
+              <div class="input-wrapper">
+                <i class="fas fa-tag"></i>
+                <input type="text" id="subject" placeholder="Enrollment inquiry" required>
+              </div>
+              <small class="error-message" id="subjectError"></small>
+            </div>
+            <div class="form-group">
+              <label for="message">Message <span>*</span></label>
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fas fa-comment"></i>
+                <textarea id="message" rows="5" placeholder="Tell us how we can help..." required></textarea>
+              </div>
+              <small class="error-message" id="messageError"></small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            <!-- Success message (hidden by default) -->
+            <div class="success-message" id="successMessage">
+              <i class="fas fa-check-circle"></i> Your message has been sent successfully! We'll get back to you soon.
+            </div>
+          </form>
+        </div>
+
+        <!-- Contact Information Cards -->
+        <div class="contact-info-column">
+          <div class="info-card">
+            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+            <h3>Phone</h3>
+            <p>+1 (555) 123-4567</p>
+            <p class="info-sub">Monday – Friday, 8am – 5pm</p>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+            <h3>Email</h3>
+            <p>info@smartschool.edu</p>
+            <p class="info-sub">support@smartschool.edu</p>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <h3>Address</h3>
+            <p>789 Education Boulevard</p>
+            <p class="info-sub">Learning City, ED 10001</p>
+          </div>
+          <!-- Map Placeholder -->
+          <div class="map-placeholder">
+            <div class="map-overlay">
+              <i class="fas fa-map-pin"></i>
+              <span>Interactive Map</span>
+              <p>Visit our campus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Support / FAQ teaser -->
+    <section class="quick-support section-padding bg-light">
+      <div class="container support-content">
+        <h2>Need Immediate Help?</h2>
+        <p>Check our knowledge base or reach our support team directly.</p>
+        <a href="#" class="btn btn-primary"><i class="fas fa-headset"></i> Support Center</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3><i class="fas fa-graduation-cap"></i> SmartSchool</h3>
+        <p>Modern education management for forward-thinking institutions.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Application</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 789 Education Blvd, Learning City</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> info@smartschool.edu</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; 2025 SmartSchool Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="/js/contact.js"></script>
+</body>
+</html>

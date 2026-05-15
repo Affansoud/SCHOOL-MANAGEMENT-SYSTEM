@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admin Panel | School Management System</title>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/css/admin-panel.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>Smart<span>School</span></span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Admin Profile Summary -->
+      <div class="admin-profile">
+        <div class="admin-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="admin-info">
+          <h4>Dr. Robert Williams</h4>
+          <span>System Administrator</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#" class="nav-link active" data-section="dashboard">
+              <i class="fas fa-th-large"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="results-management">
+              <i class="fas fa-chart-bar"></i>
+              <span>Results Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="performance-reports">
+              <i class="fas fa-trophy"></i>
+              <span>Performance Reports</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="attendance-reports">
+              <i class="fas fa-calendar-check"></i>
+              <span>Attendance Reports</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="payments">
+              <i class="fas fa-credit-card"></i>
+              <span>Payments</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="applications">
+              <i class="fas fa-file-alt"></i>
+              <span>Applications</span>
+              <span class="badge">8</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="manage-teachers">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <span>Manage Teachers</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="manage-students">
+              <i class="fas fa-user-graduate"></i>
+              <span>Manage Students</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="messages">
+              <i class="fas fa-envelope"></i>
+              <span>Messages</span>
+              <span class="badge">15</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-section="settings">
+              <i class="fas fa-cog"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Logout Button -->
+      <div class="sidebar-footer">
+        <a href="index.html" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+      <!-- Top Navbar -->
+      <header class="top-navbar" id="topNavbar">
+        <div class="top-nav-left">
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open sidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2 class="page-title" id="pageTitle">Admin Dashboard</h2>
+        </div>
+        <div class="top-nav-right">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search..." id="globalSearch">
+          </div>
+          <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-dot"></span>
+          </div>
+          <div class="user-avatar-small">
+            <i class="fas fa-user-shield"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Wrapper -->
+      <div class="content-wrapper" id="contentWrapper">
+        <!-- Dashboard Section -->
+        <section class="dashboard-section active-section" id="dashboardSection">
+          <!-- Welcome Card -->
+          <div class="welcome-card">
+            <div class="welcome-text">
+              <h1>Welcome back, Dr. Williams! 👋</h1>
+              <p>System overview as of today. There are 8 pending applications requiring your attention.</p>
+            </div>
+            <div class="welcome-date">
+              <i class="fas fa-calendar-alt"></i>
+              <span id="currentDate"></span>
+            </div>
+          </div>
+
+          <!-- Statistics Cards Row -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #eff6ff; color: #2563eb;">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+              <div class="stat-info">
+                <h3>2,450</h3>
+                <p>Total Students</p>
+                <span class="stat-change positive">+12% this year</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+              <div class="stat-info">
+                <h3>85</h3>
+                <p>Total Teachers</p>
+                <span class="stat-change positive">+5 new this term</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #fffbeb; color: #f59e0b;">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="stat-info">
+                <h3>$125K</h3>
+                <p>Total Payments</p>
+                <span class="stat-change">This term</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: #fef2f2; color: #ef4444;">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <div class="stat-info">
+                <h3>8</h3>
+                <p>Pending Applications</p>
+                <span class="stat-change negative">Requires review</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Applications & Quick Stats Row -->
+          <div class="content-row">
+            <!-- Recent Applications Table -->
+            <div class="card table-card">
+              <div class="card-header">
+                <h3><i class="fas fa-clock"></i> Recent Applications</h3>
+                <a href="#" class="view-all" data-section="applications">View All <i class="fas fa-arrow-right"></i></a>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table" id="recentAppsTable">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Class</th>
+                      <th>Parent</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Emma Davis</td>
+                      <td>Grade 3</td>
+                      <td>John Davis</td>
+                      <td>Mar 14, 2025</td>
+                      <td><span class="status status-pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>Liam Wilson</td>
+                      <td>Grade 7</td>
+                      <td>Mary Wilson</td>
+                      <td>Mar 13, 2025</td>
+                      <td><span class="status status-pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>Ava Martinez</td>
+                      <td>Grade 5</td>
+                      <td>Carlos Martinez</td>
+                      <td>Mar 12, 2025</td>
+                      <td><span class="status status-done">Accepted</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- System Overview -->
+            <div class="card overview-card">
+              <div class="card-header">
+                <h3><i class="fas fa-chart-pie"></i> System Overview</h3>
+              </div>
+              <div class="overview-list">
+                <div class="overview-item">
+                  <span>Active Students</span>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 92%; background: #2563eb;"></div>
+                  </div>
+                  <span>92%</span>
+                </div>
+                <div class="overview-item">
+                  <span>Fee Collection</span>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 78%; background: #16a34a;"></div>
+                  </div>
+                  <span>78%</span>
+                </div>
+                <div class="overview-item">
+                  <span>Attendance Rate</span>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 95%; background: #f59e0b;"></div>
+                  </div>
+                  <span>95%</span>
+                </div>
+                <div class="overview-item">
+                  <span>Teacher Retention</span>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 88%; background: #8b5cf6;"></div>
+                  </div>
+                  <span>88%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Applications Section (Hidden by default) -->
+        <section class="content-section" id="applicationsSection" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-file-alt"></i> Application Review</h2>
+              <div class="filter-group">
+                <input type="text" placeholder="Filter applications..." class="table-filter" data-table="appsTable">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="appsTable">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Parent</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>APP-2025-1001</td>
+                    <td>Emma Davis</td>
+                    <td>Grade 3</td>
+                    <td>John Davis</td>
+                    <td>Mar 14, 2025</td>
+                    <td><span class="status status-pending">Pending</span></td>
+                    <td>
+                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1001', 'accept')">
+                        <i class="fas fa-check"></i> Accept
+                      </button>
+                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1001', 'reject')">
+                        <i class="fas fa-times"></i> Reject
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>APP-2025-1002</td>
+                    <td>Liam Wilson</td>
+                    <td>Grade 7</td>
+                    <td>Mary Wilson</td>
+                    <td>Mar 13, 2025</td>
+                    <td><span class="status status-pending">Pending</span></td>
+                    <td>
+                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1002', 'accept')">
+                        <i class="fas fa-check"></i> Accept
+                      </button>
+                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1002', 'reject')">
+                        <i class="fas fa-times"></i> Reject
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>APP-2025-1003</td>
+                    <td>Noah Thompson</td>
+                    <td>Grade 9</td>
+                    <td>Sarah Thompson</td>
+                    <td>Mar 12, 2025</td>
+                    <td><span class="status status-pending">Pending</span></td>
+                    <td>
+                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1003', 'accept')">
+                        <i class="fas fa-check"></i> Accept
+                      </button>
+                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1003', 'reject')">
+                        <i class="fas fa-times"></i> Reject
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>APP-2025-1004</td>
+                    <td>Ava Martinez</td>
+                    <td>Grade 5</td>
+                    <td>Carlos Martinez</td>
+                    <td>Mar 12, 2025</td>
+                    <td><span class="status status-done">Accepted</span></td>
+                    <td><span class="text-light">Completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results Management Section (Hidden by default) -->
+        <section class="content-section" id="resultsManagementSection" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-chart-bar"></i> Results Management</h2>
+              <div class="filter-group">
+                <select class="table-filter" data-table="resultsTable">
+                  <option value="">All Classes</option>
+                  <option>Grade 5</option>
+                  <option>Grade 6</option>
+                  <option>Grade 7</option>
+                  <option>Grade 8</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="resultsTable">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                    <th>Term</th>
+                    <th>Uploaded By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Emily Johnson</td><td>Math</td><td>95</td><td>A</td><td>Term 2</td><td>Mr. Chen</td></tr>
+                  <tr><td>Daniel Brown</td><td>Science</td><td>88</td><td>B+</td><td>Term 2</td><td>Ms. Lee</td></tr>
+                  <tr><td>Sophia Williams</td><td>English</td><td>92</td><td>A-</td><td>Term 2</td><td>Mrs. Patel</td></tr>
+                  <tr><td>James Anderson</td><td>History</td><td>78</td><td>C+</td><td>Term 2</td><td>Mr. Brown</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Payments Section (Hidden by default) -->
+        <section class="content-section" id="paymentsSection" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-credit-card"></i> Payment Status</h2>
+              <div class="filter-group">
+                <input type="text" placeholder="Filter payments..." class="table-filter" data-table="paymentsTable">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="paymentsTable">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Amount</th>
+                    <th>Term</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Emily Johnson</td><td>Grade 5</td><td>$1,200</td><td>Term 2</td><td><span class="status status-done">Paid</span></td><td>Mar 01</td></tr>
+                  <tr><td>Daniel Brown</td><td>Grade 8</td><td>$1,500</td><td>Term 2</td><td><span class="status status-done">Paid</span></td><td>Feb 28</td></tr>
+                  <tr><td>Sophia Williams</td><td>Grade 3</td><td>$900</td><td>Term 2</td><td><span class="status status-pending">Pending</span></td><td>—</td></tr>
+                  <tr><td>James Anderson</td><td>Grade 6</td><td>$1,100</td><td>Term 2</td><td><span class="status status-overdue">Overdue</span></td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Messages Section (Hidden by default) -->
+        <section class="content-section" id="messagesSection" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-envelope"></i> Message Inbox</h2>
+              <span class="unread-count">3 unread</span>
+            </div>
+            <div class="message-list">
+              <div class="message-item unread">
+                <div class="msg-avatar"><i class="fas fa-user"></i></div>
+                <div class="msg-content">
+                  <strong>Sarah Johnson (Parent)</strong>
+                  <p>Inquiry about Grade 5 admission process for next academic year.</p>
+                  <span>Today, 10:30 AM</span>
+                </div>
+              </div>
+              <div class="message-item unread">
+                <div class="msg-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="msg-content">
+                  <strong>Mr. Michael Chen</strong>
+                  <p>Requesting approval for field trip to Science Museum on March 20th.</p>
+                  <span>Yesterday, 3:15 PM</span>
+                </div>
+              </div>
+              <div class="message-item">
+                <div class="msg-avatar"><i class="fas fa-user-tie"></i></div>
+                <div class="msg-content">
+                  <strong>Finance Department</strong>
+                  <p>Monthly fee collection report is ready for review.</p>
+                  <span>Mar 12, 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Other Placeholder Sections -->
+        <section class="content-section" id="performanceReportsSection" style="display: none;">
+          <div class="card"><div class="card-header"><h2><i class="fas fa-trophy"></i> Performance Reports</h2></div><p style="padding: 20px; color: #64748b;">Performance reports module will be available here.</p></div>
+        </section>
+        <section class="content-section" id="attendanceReportsSection" style="display: none;">
+          <div class="card"><div class="card-header"><h2><i class="fas fa-calendar-check"></i> Attendance Reports</h2></div><p style="padding: 20px; color: #64748b;">Attendance reports module will be available here.</p></div>
+        </section>
+        <section class="content-section" id="manageTeachersSection" style="display: none;">
+          <div class="card"><div class="card-header"><h2><i class="fas fa-chalkboard-teacher"></i> Manage Teachers</h2></div><p style="padding: 20px; color: #64748b;">Teacher management module will be available here.</p></div>
+        </section>
+        <section class="content-section" id="manageStudentsSection" style="display: none;">
+          <div class="card"><div class="card-header"><h2><i class="fas fa-user-graduate"></i> Manage Students</h2></div><p style="padding: 20px; color: #64748b;">Student management module will be available here.</p></div>
+        </section>
+        <section class="content-section" id="settingsSection" style="display: none;">
+          <div class="card"><div class="card-header"><h2><i class="fas fa-cog"></i> Settings</h2></div><p style="padding: 20px; color: #64748b;">System settings will be available here.</p></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="/js/admin-panel.js"></script>
+</body>
+</html>
