@@ -1,504 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Admin Panel | School Management System</title>
-  <!-- Font Awesome 6 Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Inter for clean typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <!-- External CSS -->
-  <link rel="stylesheet" href="css/admin-panel.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SmartSchool Admin Portal</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/admin-panel.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <!-- Sidebar Overlay for mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <i class="fas fa-shield-alt"></i>
-          <span>Smart<span>School</span></span>
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <div id="loginPage" class="auth-page">
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner-container text-center text-white">
+                <div class="spinner-border custom-spinner mb-3" role="status"></div>
+                <p id="loadingText" class="fw-medium">Processing...</p>
+            </div>
         </div>
-        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
 
-      <!-- Admin Profile Summary -->
-      <div class="admin-profile">
-        <div class="admin-avatar">
-          <i class="fas fa-user-shield"></i>
+        <!-- Success Overlay -->
+        <div class="loading-overlay" id="successOverlay">
+            <div class="success-animation bg-white rounded-4 p-5 text-center shadow-lg">
+                <div class="checkmark-circle bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:90px;height:90px;">
+                    <i class="fas fa-check text-success fs-1"></i>
+                </div>
+                <h2 id="successTitle" class="fw-bold mb-2">Authentication Successful!</h2>
+                <p id="successMessage" class="text-muted mb-3">Redirecting to admin dashboard...</p>
+                <div class="progress" style="height:5px;">
+                    <div class="progress-bar bg-success" id="progressFill" style="width:0%;"></div>
+                </div>
+            </div>
         </div>
-        <div class="admin-info">
-          <h4>Dr. Robert Williams</h4>
-          <span>System Administrator</span>
+
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100">
+                <div class="col-11 col-md-10 col-lg-9 col-xl-8">
+                    <div class="auth-card shadow-lg border-0 rounded-4 overflow-hidden">
+                        <div class="row g-0">
+                            <!-- Left Panel - Branding -->
+                            <div class="col-lg-5 d-none d-lg-block bg-gradient-primary text-white p-5 position-relative overflow-hidden">
+                                <div class="branding-content position-relative z-1 text-center h-100 d-flex flex-column justify-content-center">
+                                    <div class="mb-4">
+                                        <div class="school-logo bg-white bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:100px;height:100px;border:2px solid rgba(255,255,255,0.3);">
+                                            <i class="fas fa-shield-alt text-white fs-1"></i>
+                                        </div>
+                                        <h1 class="fw-extrabold mb-1">Smart<span class="text-info-light">School</span></h1>
+                                        <p class="opacity-75 fst-italic small">Administrative Control Panel</p>
+                                    </div>
+                                    
+                                    <div class="feature-list text-start mt-4">
+                                        <div class="feature-item d-flex align-items-center gap-3 p-3 rounded-3 mb-2" style="background:rgba(255,255,255,0.08);">
+                                            <i class="fas fa-users-cog fs-5 opacity-75"></i>
+                                            <span class="small fw-medium">Full System Management</span>
+                                        </div>
+                                        <div class="feature-item d-flex align-items-center gap-3 p-3 rounded-3 mb-2" style="background:rgba(255,255,255,0.08);">
+                                            <i class="fas fa-chart-pie fs-5 opacity-75"></i>
+                                            <span class="small fw-medium">Advanced Analytics & Reports</span>
+                                        </div>
+                                        <div class="feature-item d-flex align-items-center gap-3 p-3 rounded-3 mb-2" style="background:rgba(255,255,255,0.08);">
+                                            <i class="fas fa-shield-haltered fs-5 opacity-75"></i>
+                                            <span class="small fw-medium">Secure Access Control</span>
+                                        </div>
+                                        <div class="feature-item d-flex align-items-center gap-3 p-3 rounded-3" style="background:rgba(255,255,255,0.08);">
+                                            <i class="fas fa-database fs-5 opacity-75"></i>
+                                            <span class="small fw-medium">Data Management Center</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-auto pt-4">
+                                        <p class="small opacity-50 mb-0">&copy; 2024 SmartSchool Management System</p>
+                                        <p class="small opacity-50 mb-0">Admin Portal v4.0.1</p>
+                                    </div>
+                                </div>
+                                <!-- Decorative circle -->
+                                <div class="position-absolute top-0 end-0 translate-middle" style="width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);border-radius:50%;"></div>
+                            </div>
+
+                            <!-- Right Panel - Forms -->
+                            <div class="col-lg-7 bg-white p-4 p-md-5">
+                                <!-- Login Form -->
+                                <div class="auth-form active" id="loginFormSection">
+                                    <div class="text-center mb-4">
+                                        <div class="d-lg-none mb-3">
+                                            <div class="school-logo-sm bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:70px;height:70px;">
+                                                <i class="fas fa-shield-alt text-primary fs-3"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="fw-bold mb-1">Admin Portal Login</h2>
+                                        <p class="text-muted small">Enter your credentials to access the control panel</p>
+                                    </div>
+
+                                    <form id="loginFormElement" novalidate autocomplete="off">
+                                        <!-- Admin Email -->
+                                        <div class="mb-3">
+                                            <label for="adminEmail" class="form-label small fw-semibold">
+                                                <i class="fas fa-envelope text-muted me-1"></i> Admin Email Address
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-at text-muted"></i></span>
+                                                <input type="email" class="form-control border-start-0" id="adminEmail" placeholder="admin@smartschool.com" required autocomplete="off">
+                                            </div>
+                                            <div class="invalid-feedback" id="emailError"></div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="mb-3">
+                                            <label for="adminPassword" class="form-label small fw-semibold">
+                                                <i class="fas fa-lock text-muted me-1"></i> Password
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-key text-muted"></i></span>
+                                                <input type="password" class="form-control border-start-0 border-end-0" id="adminPassword" placeholder="Enter your password" required autocomplete="off">
+                                                <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePasswordBtn">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                            <div class="invalid-feedback" id="passwordError"></div>
+                                            <div class="form-text small"><i class="fas fa-info-circle me-1"></i>Default password provided by system administrator</div>
+                                        </div>
+
+                                        <!-- Options Row -->
+                                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="rememberMeCheckbox">
+                                                <label class="form-check-label small" for="rememberMeCheckbox">Remember me for 7 days</label>
+                                            </div>
+                                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill" id="btnDemoCredentials">
+                                                <i class="fas fa-key me-1"></i> Use Demo Credentials
+                                            </button>
+                                        </div>
+
+                                        <!-- Login Button -->
+                                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold mb-3" id="loginSubmitBtn">
+                                            <span>Sign In to Admin Panel</span>
+                                            <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+
+                                        <!-- Security Notice -->
+                                        <div class="alert alert-success py-2 small mb-0" role="alert">
+                                            <i class="fas fa-shield-alt me-1"></i> Secure login with two-factor OTP verification
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- OTP Form -->
+                                <div class="auth-form" id="otpFormSection">
+                                    <div class="text-center mb-4">
+                                        <div class="otp-icon bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:70px;height:70px;">
+                                            <i class="fas fa-shield-alt text-success fs-3"></i>
+                                        </div>
+                                        <h2 class="fw-bold mb-1">OTP Verification</h2>
+                                        <p class="text-muted small">Enter the 6-digit verification code</p>
+                                        <p class="text-primary small fw-medium mb-0" id="otpSentToEmail"></p>
+                                        <p class="text-muted small mt-1">Check your email inbox for the code</p>
+                                    </div>
+
+                                    <!-- DYNAMIC OTP DISPLAY BOX -->
+                                    <div class="otp-display-box text-center p-3 rounded-3 mb-3 border-2 border-dashed" id="otpDisplayBox">
+                                        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+                                            <i class="fas fa-envelope-open-text text-primary"></i>
+                                            <span class="small fw-semibold text-primary">Your Verification Code</span>
+                                        </div>
+                                        <div class="otp-display-code display-4 fw-bold text-dark font-monospace mb-2" id="otpDisplayCode" style="letter-spacing:8px;">------</div>
+                                        <div class="d-flex align-items-center justify-content-center gap-1">
+                                            <i class="fas fa-info-circle text-warning small"></i>
+                                            <span class="text-muted small fst-italic">Demo display - In production, sent via email</span>
+                                        </div>
+                                    </div>
+
+                                    <form id="otpFormElement" novalidate autocomplete="off">
+                                        <!-- OTP Input Boxes -->
+                                        <div class="d-flex gap-2 justify-content-center mb-3" id="otpInputContainer">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="0" autocomplete="off">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="1" autocomplete="off">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="2" autocomplete="off">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="3" autocomplete="off">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="4" autocomplete="off">
+                                            <input type="text" class="otp-input form-control text-center fw-bold" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="5" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback text-center mb-2" id="otpError"></div>
+
+                                        <!-- OTP Timer -->
+                                        <div class="text-center bg-light rounded-3 py-2 mb-3">
+                                            <i class="fas fa-clock text-warning me-1"></i>
+                                            <span class="small">Code expires in: <strong id="timerCountdown" class="text-dark">02:00</strong></span>
+                                        </div>
+
+                                        <!-- Verify Button -->
+                                        <button type="submit" class="btn btn-success w-100 py-2 fw-semibold mb-3" id="verifyOtpSubmitBtn">
+                                            <span>Verify & Continue</span>
+                                            <i class="fas fa-check-circle ms-2"></i>
+                                        </button>
+
+                                        <!-- Resend OTP -->
+                                        <div class="text-center mb-3">
+                                            <p class="small text-muted mb-1">Didn't receive the code?</p>
+                                            <button type="button" class="btn btn-link btn-sm text-decoration-none" id="resendOtpButton" disabled>
+                                                <i class="fas fa-redo-alt me-1"></i> Resend New Code
+                                            </button>
+                                            <span class="badge bg-secondary ms-1" id="resendTimerDisplay">in 30s</span>
+                                        </div>
+
+                                        <!-- Back to Login -->
+                                        <button type="button" class="btn btn-outline-secondary w-100 py-2" id="backToLoginButton">
+                                            <i class="fas fa-arrow-left me-2"></i> Back to Login
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <!-- Navigation Links -->
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a href="#" class="nav-link active" data-section="dashboard">
-              <i class="fas fa-th-large"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="results-management">
-              <i class="fas fa-chart-bar"></i>
-              <span>Results Management</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="performance-reports">
-              <i class="fas fa-trophy"></i>
-              <span>Performance Reports</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="attendance-reports">
-              <i class="fas fa-calendar-check"></i>
-              <span>Attendance Reports</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="payments">
-              <i class="fas fa-credit-card"></i>
-              <span>Payments</span>
-            </a>
-          </li>
-          <li>
-            <a href="aplication.html" class="nav-link" data-section="applications">
-              <i class="fas fa-file-alt"></i>
-              <span>Applications</span>
-              <span class="badge">8</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="manage-teachers">
-              <i class="fas fa-chalkboard-teacher"></i>
-              <span>Manage Teachers</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="manage-students">
-              <i class="fas fa-user-graduate"></i>
-              <span>Manage Students</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="messages">
-              <i class="fas fa-envelope"></i>
-              <span>Messages</span>
-              <span class="badge">15</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-section="settings">
-              <i class="fas fa-cog"></i>
-              <span>Settings</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+    <!-- ==================== DASHBOARD PAGE ==================== -->
+    <div id="dashboardPage" style="display:none;">
+        <div class="dashboard-container">
+            <!-- Sidebar Overlay -->
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-      <!-- Logout Button -->
-      <div class="sidebar-footer">
-        <a href="index.html" class="logout-btn">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </a>
-      </div>
-    </aside>
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header d-flex align-items-center justify-content-between p-3 border-bottom">
+                    <div class="sidebar-logo d-flex align-items-center gap-2">
+                        <i class="fas fa-shield-alt text-primary fs-4"></i>
+                        <span class="fw-bold">Smart<span class="text-primary">School</span></span>
+                    </div>
+                    <button class="btn btn-close d-lg-none" id="sidebarCloseBtn"></button>
+                </div>
 
-    <!-- Main Content Area -->
-    <main class="main-content" id="mainContent">
-      <!-- Top Navbar -->
-      <header class="top-navbar" id="topNavbar">
-        <div class="top-nav-left">
-          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open sidebar">
-            <i class="fas fa-bars"></i>
-          </button>
-          <h2 class="page-title" id="pageTitle">Admin Dashboard</h2>
+                <div class="admin-profile d-flex align-items-center gap-3 p-3 border-bottom bg-light">
+                    <i class="fas fa-user-shield text-primary fs-1"></i>
+                    <div>
+                        <h6 class="mb-0 fw-bold" id="adminName">Dr. Robert Williams</h6>
+                        <small class="text-muted" id="adminRole">System Administrator</small>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav p-2 flex-grow-1 overflow-auto">
+                    <ul class="nav flex-column gap-1">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active rounded-3" data-section="dashboard">
+                                <i class="fas fa-th-large me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="students">
+                                <i class="fas fa-user-graduate me-2"></i> Students
+                                <span class="badge bg-primary ms-auto">2,450</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="teachers">
+                                <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+                                <span class="badge bg-success ms-auto">85</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="parents">
+                                <i class="fas fa-user-friends me-2"></i> Parents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="attendance">
+                                <i class="fas fa-calendar-check me-2"></i> Attendance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="fees">
+                                <i class="fas fa-credit-card me-2"></i> Fee Collection
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="performance">
+                                <i class="fas fa-chart-bar me-2"></i> Performance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="announcements">
+                                <i class="fas fa-bullhorn me-2"></i> Announcements
+                                <span class="badge bg-danger ms-auto">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="events">
+                                <i class="fas fa-calendar-alt me-2"></i> School Events
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="users">
+                                <i class="fas fa-users-cog me-2"></i> User Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link rounded-3" data-section="settings">
+                                <i class="fas fa-cog me-2"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer p-3 border-top">
+                    <button class="btn btn-outline-danger w-100" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Top Navbar -->
+                <header class="top-navbar bg-white border-bottom px-3 px-md-4 py-3 d-flex align-items-center justify-content-between sticky-top">
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-light d-lg-none" id="hamburgerBtn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h5 class="mb-0 fw-bold" id="pageTitle">Admin Dashboard</h5>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="input-group input-group-sm d-none d-md-flex" style="width:200px;">
+                            <span class="input-group-text bg-light"><i class="fas fa-search text-muted"></i></span>
+                            <input type="text" class="form-control" placeholder="Search..." id="globalSearch">
+                        </div>
+                        <div class="position-relative cursor-pointer">
+                            <i class="fas fa-bell text-muted fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="width:10px;height:10px;"></span>
+                        </div>
+                        <i class="fas fa-user-shield text-primary fs-4"></i>
+                    </div>
+                </header>
+
+                <!-- Content Wrapper -->
+                <div class="content-wrapper p-3 p-md-4">
+                    <!-- Dashboard Section -->
+                    <div class="content-section active" id="dashboardSection">
+                        <!-- Welcome Card -->
+                        <div class="card bg-gradient-primary text-white border-0 rounded-4 mb-4">
+                            <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                <div>
+                                    <h4 class="mb-1">Welcome back, <span id="welcomeName">Dr. Williams</span>! 👋</h4>
+                                    <p class="mb-0 opacity-75">Here's your system overview for today.</p>
+                                </div>
+                                <div class="bg-white bg-opacity-15 rounded-pill px-3 py-2">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    <span id="currentDate" class="small fw-medium"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Row -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm rounded-3 h-100 border-start border-primary border-4">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                            <i class="fas fa-user-graduate text-primary fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-0 fw-bold">2,450</h3>
+                                            <small class="text-muted">Total Students</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm rounded-3 h-100 border-start border-success border-4">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                                            <i class="fas fa-chalkboard-teacher text-success fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-0 fw-bold">85</h3>
+                                            <small class="text-muted">Total Teachers</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm rounded-3 h-100 border-start border-warning border-4">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+                                            <i class="fas fa-user-friends text-warning fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-0 fw-bold">1,890</h3>
+                                            <small class="text-muted">Total Parents</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm rounded-3 h-100 border-start border-danger border-4">
+                                    <div class="card-body d-flex align-items-center gap-3">
+                                        <div class="bg-danger bg-opacity-10 rounded-3 p-3">
+                                            <i class="fas fa-calendar-check text-danger fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-0 fw-bold">94%</h3>
+                                            <small class="text-muted">Attendance</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row g-3 mb-4">
+                            <!-- Recent Activities -->
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-sm rounded-3 h-100">
+                                    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center py-3">
+                                        <h6 class="mb-0 fw-bold"><i class="fas fa-history text-primary me-2"></i>Recent Activities</h6>
+                                        <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">View All</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                                            <div class="bg-primary bg-opacity-10 rounded-circle p-2" style="width:40px;height:40px;">
+                                                <i class="fas fa-user-plus text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">New student registration - Emma Davis (Grade 3)</p>
+                                                <small class="text-muted">10 minutes ago</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                                            <div class="bg-success bg-opacity-10 rounded-circle p-2" style="width:40px;height:40px;">
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">Fee payment received - $1,200 from John Davis</p>
+                                                <small class="text-muted">1 hour ago</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                                            <div class="bg-warning bg-opacity-10 rounded-circle p-2" style="width:40px;height:40px;">
+                                                <i class="fas fa-file-alt text-warning"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">Term 2 results uploaded by Mr. Chen (Grade 5 Math)</p>
+                                                <small class="text-muted">3 hours ago</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-3">
+                                            <div class="bg-danger bg-opacity-10 rounded-circle p-2" style="width:40px;height:40px;">
+                                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">Attendance alert - 3 students absent without notice</p>
+                                                <small class="text-muted">5 hours ago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Stats -->
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm rounded-3 h-100">
+                                    <div class="card-header bg-white border-bottom py-3">
+                                        <h6 class="mb-0 fw-bold"><i class="fas fa-chart-pie text-primary me-2"></i>Fee Collection</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between small mb-1"><span>Term 1</span><span class="fw-bold">92%</span></div>
+                                            <div class="progress" style="height:8px;"><div class="progress-bar bg-success" style="width:92%;"></div></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between small mb-1"><span>Term 2</span><span class="fw-bold">78%</span></div>
+                                            <div class="progress" style="height:8px;"><div class="progress-bar bg-warning" style="width:78%;"></div></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between small mb-1"><span>Term 3</span><span class="fw-bold">45%</span></div>
+                                            <div class="progress" style="height:8px;"><div class="progress-bar bg-danger" style="width:45%;"></div></div>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <h4 class="fw-bold text-success">$125,000</h4>
+                                            <small class="text-muted">Total Collected This Year</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Announcements & Events -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm rounded-3">
+                                    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center py-3">
+                                        <h6 class="mb-0 fw-bold"><i class="fas fa-bullhorn text-primary me-2"></i>Announcements</h6>
+                                        <span class="badge bg-danger">3 New</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="border-start border-primary border-3 ps-3 mb-3 bg-light rounded p-2">
+                                            <p class="mb-0 small fw-semibold">Staff Meeting - Friday 3:00 PM</p>
+                                            <small class="text-muted">Posted 2 hours ago</small>
+                                        </div>
+                                        <div class="border-start border-warning border-3 ps-3 mb-3 bg-light rounded p-2">
+                                            <p class="mb-0 small fw-semibold">Grade Submission Deadline - March 25th</p>
+                                            <small class="text-muted">Posted 1 day ago</small>
+                                        </div>
+                                        <div class="border-start border-success border-3 ps-3 bg-light rounded p-2">
+                                            <p class="mb-0 small fw-semibold">Science Fair - Volunteers Needed March 18th</p>
+                                            <small class="text-muted">Posted 3 days ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm rounded-3">
+                                    <div class="card-header bg-white border-bottom py-3">
+                                        <h6 class="mb-0 fw-bold"><i class="fas fa-calendar-week text-primary me-2"></i>Upcoming Events</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex gap-3 mb-3">
+                                            <div class="bg-primary text-white rounded-3 text-center p-2" style="min-width:55px;">
+                                                <div class="fw-bold">15</div>
+                                                <small>Mar</small>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">Parent-Teacher Conference</p>
+                                                <small class="text-muted"><i class="fas fa-clock me-1"></i>4:00 PM - 7:00 PM</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-3 mb-3">
+                                            <div class="bg-success text-white rounded-3 text-center p-2" style="min-width:55px;">
+                                                <div class="fw-bold">20</div>
+                                                <small>Mar</small>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">Science Field Trip</p>
+                                                <small class="text-muted"><i class="fas fa-clock me-1"></i>9:00 AM - 2:00 PM</small>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-3">
+                                            <div class="bg-warning text-white rounded-3 text-center p-2" style="min-width:55px;">
+                                                <div class="fw-bold">28</div>
+                                                <small>Mar</small>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 small fw-semibold">End of Term Assembly</p>
+                                                <small class="text-muted"><i class="fas fa-clock me-1"></i>10:00 AM - 11:30 AM</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder Sections -->
+                    <div class="content-section" id="studentsSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-user-graduate text-primary fs-1 mb-3"></i><h5>Student Management</h5><p class="text-muted">Student management module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="teachersSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-chalkboard-teacher text-success fs-1 mb-3"></i><h5>Teacher Management</h5><p class="text-muted">Teacher management module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="parentsSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-user-friends text-warning fs-1 mb-3"></i><h5>Parent Management</h5><p class="text-muted">Parent management module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="attendanceSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-calendar-check text-danger fs-1 mb-3"></i><h5>Attendance Reports</h5><p class="text-muted">Attendance reports module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="feesSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-credit-card text-success fs-1 mb-3"></i><h5>Fee Collection</h5><p class="text-muted">Fee collection module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="performanceSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-chart-bar text-primary fs-1 mb-3"></i><h5>Performance Reports</h5><p class="text-muted">Performance reports module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="announcementsSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-bullhorn text-warning fs-1 mb-3"></i><h5>Announcements</h5><p class="text-muted">Announcements module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="eventsSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-calendar-alt text-primary fs-1 mb-3"></i><h5>School Events</h5><p class="text-muted">School events module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="usersSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-users-cog text-secondary fs-1 mb-3"></i><h5>User Management</h5><p class="text-muted">User management module will be available here.</p></div></div>
+                    </div>
+                    <div class="content-section" id="settingsSection" style="display:none;">
+                        <div class="card border-0 shadow-sm rounded-3"><div class="card-body p-5 text-center"><i class="fas fa-cog text-muted fs-1 mb-3"></i><h5>System Settings</h5><p class="text-muted">System settings module will be available here.</p></div></div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <div class="top-nav-right">
-          <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search..." id="globalSearch">
-          </div>
-          <div class="notification-icon">
-            <i class="fas fa-bell"></i>
-            <span class="notification-dot"></span>
-          </div>
-          <div class="user-avatar-small">
-            <i class="fas fa-user-shield"></i>
-          </div>
-        </div>
-      </header>
+    </div>
 
-      <!-- Content Wrapper -->
-      <div class="content-wrapper" id="contentWrapper">
-        <!-- Dashboard Section -->
-        <section class="dashboard-section active-section" id="dashboardSection">
-          <!-- Welcome Card -->
-          <div class="welcome-card">
-            <div class="welcome-text">
-              <h1>Welcome back, Dr. Williams! 👋</h1>
-              <p>System overview as of today. There are 8 pending applications requiring your attention.</p>
-            </div>
-            <div class="welcome-date">
-              <i class="fas fa-calendar-alt"></i>
-              <span id="currentDate"></span>
-            </div>
-          </div>
-
-          <!-- Statistics Cards Row -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon" style="background: #eff6ff; color: #2563eb;">
-                <i class="fas fa-user-graduate"></i>
-              </div>
-              <div class="stat-info">
-                <h3>2,450</h3>
-                <p>Total Students</p>
-                <span class="stat-change positive">+12% this year</span>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;">
-                <i class="fas fa-chalkboard-teacher"></i>
-              </div>
-              <div class="stat-info">
-                <h3>85</h3>
-                <p>Total Teachers</p>
-                <span class="stat-change positive">+5 new this term</span>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon" style="background: #fffbeb; color: #f59e0b;">
-                <i class="fas fa-credit-card"></i>
-              </div>
-              <div class="stat-info">
-                <h3>$125K</h3>
-                <p>Total Payments</p>
-                <span class="stat-change">This term</span>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon" style="background: #fef2f2; color: #ef4444;">
-                <i class="fas fa-file-alt"></i>
-              </div>
-              <div class="stat-info">
-                <h3>8</h3>
-                <p>Pending Applications</p>
-                <span class="stat-change negative">Requires review</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recent Applications & Quick Stats Row -->
-          <div class="content-row">
-            <!-- Recent Applications Table -->
-            <div class="card table-card">
-              <div class="card-header">
-                <h3><i class="fas fa-clock"></i> Recent Applications</h3>
-                <a href="#" class="view-all" data-section="applications">View All <i class="fas fa-arrow-right"></i></a>
-              </div>
-              <div class="table-responsive">
-                <table class="data-table" id="recentAppsTable">
-                  <thead>
-                    <tr>
-                      <th>Student</th>
-                      <th>Class</th>
-                      <th>Parent</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Emma Davis</td>
-                      <td>Grade 3</td>
-                      <td>John Davis</td>
-                      <td>Mar 14, 2025</td>
-                      <td><span class="status status-pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                      <td>Liam Wilson</td>
-                      <td>Grade 7</td>
-                      <td>Mary Wilson</td>
-                      <td>Mar 13, 2025</td>
-                      <td><span class="status status-pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                      <td>Ava Martinez</td>
-                      <td>Grade 5</td>
-                      <td>Carlos Martinez</td>
-                      <td>Mar 12, 2025</td>
-                      <td><span class="status status-done">Accepted</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- System Overview -->
-            <div class="card overview-card">
-              <div class="card-header">
-                <h3><i class="fas fa-chart-pie"></i> System Overview</h3>
-              </div>
-              <div class="overview-list">
-                <div class="overview-item">
-                  <span>Active Students</span>
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 92%; background: #2563eb;"></div>
-                  </div>
-                  <span>92%</span>
-                </div>
-                <div class="overview-item">
-                  <span>Fee Collection</span>
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 78%; background: #16a34a;"></div>
-                  </div>
-                  <span>78%</span>
-                </div>
-                <div class="overview-item">
-                  <span>Attendance Rate</span>
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 95%; background: #f59e0b;"></div>
-                  </div>
-                  <span>95%</span>
-                </div>
-                <div class="overview-item">
-                  <span>Teacher Retention</span>
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 88%; background: #8b5cf6;"></div>
-                  </div>
-                  <span>88%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Applications Section (Hidden by default) -->
-        <section class="content-section" id="applicationsSection" style="display: none;">
-          <div class="card">
-            <div class="card-header">
-              <h2><i class="fas fa-file-alt"></i> Application Review</h2>
-              <div class="filter-group">
-                <input type="text" placeholder="Filter applications..." class="table-filter" data-table="appsTable">
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="data-table" id="appsTable">
-                <thead>
-                  <tr>
-                    <th>Reference</th>
-                    <th>Student Name</th>
-                    <th>Class</th>
-                    <th>Parent</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>APP-2025-1001</td>
-                    <td>Emma Davis</td>
-                    <td>Grade 3</td>
-                    <td>John Davis</td>
-                    <td>Mar 14, 2025</td>
-                    <td><span class="status status-pending">Pending</span></td>
-                    <td>
-                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1001', 'accept')">
-                        <i class="fas fa-check"></i> Accept
-                      </button>
-                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1001', 'reject')">
-                        <i class="fas fa-times"></i> Reject
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>APP-2025-1002</td>
-                    <td>Liam Wilson</td>
-                    <td>Grade 7</td>
-                    <td>Mary Wilson</td>
-                    <td>Mar 13, 2025</td>
-                    <td><span class="status status-pending">Pending</span></td>
-                    <td>
-                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1002', 'accept')">
-                        <i class="fas fa-check"></i> Accept
-                      </button>
-                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1002', 'reject')">
-                        <i class="fas fa-times"></i> Reject
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>APP-2025-1003</td>
-                    <td>Noah Thompson</td>
-                    <td>Grade 9</td>
-                    <td>Sarah Thompson</td>
-                    <td>Mar 12, 2025</td>
-                    <td><span class="status status-pending">Pending</span></td>
-                    <td>
-                      <button class="btn-action accept-btn" onclick="handleApplication('APP-2025-1003', 'accept')">
-                        <i class="fas fa-check"></i> Accept
-                      </button>
-                      <button class="btn-action reject-btn" onclick="handleApplication('APP-2025-1003', 'reject')">
-                        <i class="fas fa-times"></i> Reject
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>APP-2025-1004</td>
-                    <td>Ava Martinez</td>
-                    <td>Grade 5</td>
-                    <td>Carlos Martinez</td>
-                    <td>Mar 12, 2025</td>
-                    <td><span class="status status-done">Accepted</span></td>
-                    <td><span class="text-light">Completed</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Results Management Section (Hidden by default) -->
-        <section class="content-section" id="resultsManagementSection" style="display: none;">
-          <div class="card">
-            <div class="card-header">
-              <h2><i class="fas fa-chart-bar"></i> Results Management</h2>
-              <div class="filter-group">
-                <select class="table-filter" data-table="resultsTable">
-                  <option value="">All Classes</option>
-                  <option>Grade 5</option>
-                  <option>Grade 6</option>
-                  <option>Grade 7</option>
-                  <option>Grade 8</option>
-                </select>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="data-table" id="resultsTable">
-                <thead>
-                  <tr>
-                    <th>Student</th>
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Term</th>
-                    <th>Uploaded By</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Emily Johnson</td><td>Math</td><td>95</td><td>A</td><td>Term 2</td><td>Mr. Chen</td></tr>
-                  <tr><td>Daniel Brown</td><td>Science</td><td>88</td><td>B+</td><td>Term 2</td><td>Ms. Lee</td></tr>
-                  <tr><td>Sophia Williams</td><td>English</td><td>92</td><td>A-</td><td>Term 2</td><td>Mrs. Patel</td></tr>
-                  <tr><td>James Anderson</td><td>History</td><td>78</td><td>C+</td><td>Term 2</td><td>Mr. Brown</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Payments Section (Hidden by default) -->
-        <section class="content-section" id="paymentsSection" style="display: none;">
-          <div class="card">
-            <div class="card-header">
-              <h2><i class="fas fa-credit-card"></i> Payment Status</h2>
-              <div class="filter-group">
-                <input type="text" placeholder="Filter payments..." class="table-filter" data-table="paymentsTable">
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="data-table" id="paymentsTable">
-                <thead>
-                  <tr>
-                    <th>Student</th>
-                    <th>Class</th>
-                    <th>Amount</th>
-                    <th>Term</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Emily Johnson</td><td>Grade 5</td><td>$1,200</td><td>Term 2</td><td><span class="status status-done">Paid</span></td><td>Mar 01</td></tr>
-                  <tr><td>Daniel Brown</td><td>Grade 8</td><td>$1,500</td><td>Term 2</td><td><span class="status status-done">Paid</span></td><td>Feb 28</td></tr>
-                  <tr><td>Sophia Williams</td><td>Grade 3</td><td>$900</td><td>Term 2</td><td><span class="status status-pending">Pending</span></td><td>—</td></tr>
-                  <tr><td>James Anderson</td><td>Grade 6</td><td>$1,100</td><td>Term 2</td><td><span class="status status-overdue">Overdue</span></td><td>—</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Messages Section (Hidden by default) -->
-        <section class="content-section" id="messagesSection" style="display: none;">
-          <div class="card">
-            <div class="card-header">
-              <h2><i class="fas fa-envelope"></i> Message Inbox</h2>
-              <span class="unread-count">3 unread</span>
-            </div>
-            <div class="message-list">
-              <div class="message-item unread">
-                <div class="msg-avatar"><i class="fas fa-user"></i></div>
-                <div class="msg-content">
-                  <strong>Sarah Johnson (Parent)</strong>
-                  <p>Inquiry about Grade 5 admission process for next academic year.</p>
-                  <span>Today, 10:30 AM</span>
-                </div>
-              </div>
-              <div class="message-item unread">
-                <div class="msg-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="msg-content">
-                  <strong>Mr. Michael Chen</strong>
-                  <p>Requesting approval for field trip to Science Museum on March 20th.</p>
-                  <span>Yesterday, 3:15 PM</span>
-                </div>
-              </div>
-              <div class="message-item">
-                <div class="msg-avatar"><i class="fas fa-user-tie"></i></div>
-                <div class="msg-content">
-                  <strong>Finance Department</strong>
-                  <p>Monthly fee collection report is ready for review.</p>
-                  <span>Mar 12, 2025</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Other Placeholder Sections -->
-        <section class="content-section" id="performanceReportsSection" style="display: none;">
-          <div class="card"><div class="card-header"><h2><i class="fas fa-trophy"></i> Performance Reports</h2></div><p style="padding: 20px; color: #64748b;">Performance reports module will be available here.</p></div>
-        </section>
-        <section class="content-section" id="attendanceReportsSection" style="display: none;">
-          <div class="card"><div class="card-header"><h2><i class="fas fa-calendar-check"></i> Attendance Reports</h2></div><p style="padding: 20px; color: #64748b;">Attendance reports module will be available here.</p></div>
-        </section>
-        <section class="content-section" id="manageTeachersSection" style="display: none;">
-          <div class="card"><div class="card-header"><h2><i class="fas fa-chalkboard-teacher"></i> Manage Teachers</h2></div><p style="padding: 20px; color: #64748b;">Teacher management module will be available here.</p></div>
-        </section>
-        <section class="content-section" id="manageStudentsSection" style="display: none;">
-          <div class="card"><div class="card-header"><h2><i class="fas fa-user-graduate"></i> Manage Students</h2></div><p style="padding: 20px; color: #64748b;">Student management module will be available here.</p></div>
-        </section>
-        <section class="content-section" id="settingsSection" style="display: none;">
-          <div class="card"><div class="card-header"><h2><i class="fas fa-cog"></i> Settings</h2></div><p style="padding: 20px; color: #64748b;">System settings will be available here.</p></div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <!-- External JavaScript -->
-  <script src="js/admin-panel.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- External JavaScript -->
+    <script src="js/admin-panel.js"></script>
 </body>
 </html>

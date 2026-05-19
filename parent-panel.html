@@ -2,422 +2,974 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SmartSchool Parent Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSchool Parent Portal - Dashboard</title>
     
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <!-- External CSS -->
     <link rel="stylesheet" href="css/parent-panel.css">
 </head>
 <body>
-
-    <!-- ==================== LOGIN PAGE ==================== -->
-    <div id="loginPage" class="page-container">
-        <!-- Loading Overlay -->
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="spinner-container">
-                <div class="spinner"></div>
-                <p id="loadingText">Processing...</p>
-            </div>
-        </div>
-
-        <!-- Success Overlay -->
-        <div class="success-overlay" id="successOverlay">
-            <div class="success-animation">
-                <div class="checkmark-circle">
-                    <i class="fas fa-check"></i>
-                </div>
-                <h2 id="successTitle">Success!</h2>
-                <p id="successMessage">Redirecting to dashboard...</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Auth Container -->
-        <div class="auth-container">
-            <!-- Left Panel - Branding -->
-            <div class="auth-left-panel">
-                <div class="branding-content">
-                    <div class="school-logo-container">
-                        <div class="school-logo">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h1>Smart<span>School</span></h1>
-                        <p class="school-motto">Nurturing Minds, Building Futures</p>
-                    </div>
-
-                    <div class="branding-features">
-                        <div class="feature-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Track Academic Performance</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-calendar-check"></i>
-                            <span>Monitor Attendance Records</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-credit-card"></i>
-                            <span>Manage Fee Payments</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-comments"></i>
-                            <span>Direct Teacher Communication</span>
-                        </div>
-                    </div>
-
-                    <div class="branding-footer">
-                        <p>&copy; 2024 SmartSchool Management System</p>
-                        <p>Version 3.0.1</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Panel - Forms -->
-            <div class="auth-right-panel">
-                <div class="auth-form-container">
-                    <!-- Login Form -->
-                    <div class="auth-form active" id="loginFormSection">
-                        <div class="form-header">
-                            <div class="form-header-icon">
-                                <i class="fas fa-user-friends"></i>
-                            </div>
-                            <h2>Parent Portal Login</h2>
-                            <p>Enter your credentials to access the dashboard</p>
-                        </div>
-
-                        <form id="loginFormElement" novalidate autocomplete="off">
-                            <div class="input-group">
-                                <label for="registrationNumber">
-                                    <i class="fas fa-id-card"></i>
-                                    Student Registration Number
-                                </label>
-                                <div class="input-field">
-                                    <input type="text" id="registrationNumber" name="registrationNumber" 
-                                           placeholder="e.g., STD2025001" required autocomplete="off">
-                                    <span class="input-icon"><i class="fas fa-user-graduate"></i></span>
-                                </div>
-                                <span class="error-message" id="regNumError"></span>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="parentEmail">
-                                    <i class="fas fa-envelope"></i>
-                                    Parent Email Address
-                                </label>
-                                <div class="input-field">
-                                    <input type="email" id="parentEmail" name="parentEmail" 
-                                           placeholder="parent@example.com" required autocomplete="off">
-                                    <span class="input-icon"><i class="fas fa-at"></i></span>
-                                </div>
-                                <span class="error-message" id="emailError"></span>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="password">
-                                    <i class="fas fa-lock"></i>
-                                    Password
-                                </label>
-                                <div class="input-field">
-                                    <input type="password" id="password" name="password" 
-                                           placeholder="Enter your password" required autocomplete="off">
-                                    <button type="button" class="toggle-password" id="togglePasswordBtn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <span class="error-message" id="passwordError"></span>
-                                <span class="help-text">
-                                    <i class="fas fa-info-circle"></i>
-                                    Default password is provided by school administration
-                                </span>
-                            </div>
-
-                            <div class="form-options">
-                                <label class="remember-me">
-                                    <input type="checkbox" id="rememberMeCheckbox">
-                                    <span class="checkmark"></span>
-                                    Remember me for 7 days
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn-login" id="loginSubmitBtn">
-                                <span>Sign In to Dashboard</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-
-                            <div class="demo-credentials">
-                                <p class="demo-title"><i class="fas fa-key"></i> Demo Credentials</p>
-                                <div class="demo-info">
-                                    <div class="demo-item"><strong>Reg Number:</strong> <code>STD2025001</code></div>
-                                    <div class="demo-item"><strong>Email:</strong> <code>parent@example.com</code></div>
-                                    <div class="demo-item"><strong>Password:</strong> <code>1234</code></div>
-                                    <div class="demo-item"><strong>OTP:</strong> <code>567890</code></div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- OTP Form -->
-                    <div class="auth-form" id="otpFormSection">
-                        <div class="form-header">
-                            <div class="form-header-icon otp-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h2>OTP Verification</h2>
-                            <p>Enter the 6-digit verification code</p>
-                            <p class="otp-sent-to" id="otpSentToEmail"></p>
-                        </div>
-
-                        <form id="otpFormElement" novalidate autocomplete="off">
-                            <div class="otp-input-container" id="otpInputContainer">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="0" autocomplete="off">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="1" autocomplete="off">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="2" autocomplete="off">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="3" autocomplete="off">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="4" autocomplete="off">
-                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="5" autocomplete="off">
-                            </div>
-                            <span class="error-message" id="otpError"></span>
-
-                            <div class="otp-timer" id="otpTimerDisplay">
-                                <i class="fas fa-clock"></i>
-                                <span>Code expires in: <strong id="timerCountdown">03:00</strong></span>
-                            </div>
-
-                            <button type="submit" class="btn-login btn-verify" id="verifyOtpSubmitBtn">
-                                <span>Verify & Continue</span>
-                                <i class="fas fa-check-circle"></i>
-                            </button>
-
-                            <div class="resend-otp">
-                                <p>Didn't receive the code?</p>
-                                <button type="button" class="btn-resend" id="resendOtpButton" disabled>
-                                    <i class="fas fa-redo-alt"></i> Resend Code
-                                </button>
-                                <span class="resend-timer" id="resendTimerDisplay">in 30s</span>
-                            </div>
-
-                            <button type="button" class="btn-back" id="backToLoginButton">
-                                <i class="fas fa-arrow-left"></i> Back to Login
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p id="loadingText">Loading Dashboard...</p>
         </div>
     </div>
 
-    <!-- ==================== DASHBOARD PAGE ==================== -->
-    <div id="dashboardPage" class="page-container" style="display: none;">
-        <div class="dashboard-container">
-            <!-- Sidebar Overlay -->
-            <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-            <!-- Sidebar -->
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <div class="sidebar-logo">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Smart<span>School</span></span>
-                    </div>
-                    <button class="sidebar-close-btn" id="sidebarCloseBtn">
-                        <i class="fas fa-times"></i>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar Overlay for Mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Smart<span>School</span></span>
+                </div>
+                <button class="sidebar-close-btn" id="sidebarCloseBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Parent Profile in Sidebar -->
+            <div class="sidebar-profile">
+                <div class="profile-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&size=80&background=2563eb&color=fff" alt="Parent Avatar">
+                    <span class="online-status"></span>
+                </div>
+                <div class="profile-info">
+                    <h4 id="sidebarParentName">Sarah Johnson</h4>
+                    <p id="sidebarChildName">Parent of Emily (Grade 5)</p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="#" class="nav-link active" data-section="dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="results">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Academic Results</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="attendance">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="payments">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Fee Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="messages">
+                            <i class="fas fa-envelope"></i>
+                            <span>Messages</span>
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-section="profile">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Top Navigation Bar -->
+            <header class="top-navbar">
+                <div class="top-nav-left">
+                    <button class="hamburger-btn" id="hamburgerBtn">
+                        <i class="fas fa-bars"></i>
                     </button>
+                    <h2 class="page-title" id="pageTitle">Dashboard</h2>
                 </div>
-
-                <div class="parent-profile">
-                    <div class="parent-avatar"><i class="fas fa-user-circle"></i></div>
-                    <div class="parent-info">
-                        <h4 id="parentName">Sarah Johnson</h4>
-                        <span id="parentChild">Parent of Emily (Grade 5)</span>
+                <div class="top-nav-right">
+                    <!-- Search Bar -->
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..." id="globalSearch">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <!-- Student Switch -->
+                    <div class="student-switch">
+                        <select id="studentSwitch">
+                            <option value="emily">Emily Johnson - Grade 5</option>
+                            <option value="michael">Michael Johnson - Grade 8</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-dot"></span>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <a href="#">Mark all as read</a>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notif-icon"><i class="fas fa-calendar-alt"></i></div>
+                                    <div class="notif-content">
+                                        <p>Parent-Teacher Meeting tomorrow at 4 PM</p>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notif-icon"><i class="fas fa-file-alt"></i></div>
+                                    <div class="notif-content">
+                                        <p>Term 2 Results published</p>
+                                        <span>1 day ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notif-icon"><i class="fas fa-money-bill"></i></div>
+                                    <div class="notif-content">
+                                        <p>Fee payment reminder for Term 3</p>
+                                        <span>3 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Date Display -->
+                    <div class="date-display" id="currentDate">Monday, January 15, 2024</div>
+                    
+                    <!-- User Avatar -->
+                    <div class="user-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&size=40&background=2563eb&color=fff" alt="User">
                     </div>
                 </div>
+            </header>
 
-                <nav class="sidebar-nav">
-                    <ul>
-                        <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
-                        <li><a href="#" class="nav-link" data-section="results"><i class="fas fa-chart-bar"></i><span>Academic Results</span></a></li>
-                        <li><a href="#" class="nav-link" data-section="attendance"><i class="fas fa-calendar-check"></i><span>Attendance</span></a></li>
-                        <li><a href="#" class="nav-link" data-section="payments"><i class="fas fa-credit-card"></i><span>Fee Payments</span></a></li>
-                        <li><a href="#" class="nav-link" data-section="messages"><i class="fas fa-envelope"></i><span>Messages</span><span class="badge">3</span></a></li>
-                        <li><a href="#" class="nav-link" data-section="profile"><i class="fas fa-user-cog"></i><span>Profile Settings</span></a></li>
-                    </ul>
-                </nav>
-
-                <div class="sidebar-footer">
-                    <button class="logout-btn" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-                    </button>
-                </div>
-            </aside>
-
-            <!-- Main Content -->
-            <main class="main-content" id="mainContent">
-                <header class="top-navbar">
-                    <div class="top-nav-left">
-                        <button class="hamburger-btn" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
-                        <h2 class="page-title" id="pageTitle">Dashboard</h2>
-                    </div>
-                    <div class="top-nav-right">
-                        <div class="notification-icon"><i class="fas fa-bell"></i><span class="notification-dot"></span></div>
-                        <div class="user-avatar-small"><i class="fas fa-user-circle"></i></div>
-                    </div>
-                </header>
-
-                <div class="content-wrapper">
+            <!-- Dynamic Content Sections -->
+            <div class="content-wrapper" id="contentWrapper">
+                <!-- Dashboard Section -->
+                <section class="content-section active" id="dashboardSection">
                     <!-- Welcome Card -->
                     <div class="welcome-card">
                         <div class="welcome-text">
                             <h1>Welcome back, <span id="welcomeName">Sarah</span>! 👋</h1>
                             <p>Here's your child's academic overview for today.</p>
                         </div>
-                        <div class="welcome-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span id="currentDate"></span>
+                        <div class="welcome-stats">
+                            <div class="welcome-stat">
+                                <i class="fas fa-star"></i>
+                                <span>92.5% Average</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Stats Grid -->
+                    <!-- Quick Stats Grid -->
                     <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #eff6ff; color: #2563eb;"><i class="fas fa-chart-line"></i></div>
-                            <div class="stat-info"><h3>92.5%</h3><p>Overall Grade</p></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;"><i class="fas fa-calendar-check"></i></div>
-                            <div class="stat-info"><h3>95%</h3><p>Attendance Rate</p></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #fffbeb; color: #f59e0b;"><i class="fas fa-credit-card"></i></div>
-                            <div class="stat-info"><h3>Paid</h3><p>Fee Status</p></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #fef2f2; color: #ef4444;"><i class="fas fa-envelope"></i></div>
-                            <div class="stat-info"><h3>5</h3><p>New Messages</p></div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="content-row">
-                        <!-- Results Table -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-file-alt"></i> Recent Academic Results</h3>
-                                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                        <div class="stat-card attendance-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
                             </div>
-                            <div class="table-responsive">
-                                <table class="results-table">
-                                    <thead>
-                                        <tr><th>Subject</th><th>Score</th><th>Grade</th><th>Term</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>Mathematics</td><td>95/100</td><td><span class="grade grade-a">A</span></td><td>Term 2</td></tr>
-                                        <tr><td>English</td><td>88/100</td><td><span class="grade grade-b">B+</span></td><td>Term 2</td></tr>
-                                        <tr><td>Science</td><td>92/100</td><td><span class="grade grade-a">A-</span></td><td>Term 2</td></tr>
-                                        <tr><td>History</td><td>85/100</td><td><span class="grade grade-b">B</span></td><td>Term 2</td></tr>
-                                        <tr><td>Art</td><td>98/100</td><td><span class="grade grade-a">A+</span></td><td>Term 2</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Attendance -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-calendar-alt"></i> Attendance Summary</h3>
-                                <a href="#" class="view-all">Details <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                            <div class="attendance-chart">
-                                <div class="chart-circle">
-                                    <svg viewBox="0 0 120 120" class="circular-chart">
-                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" stroke-width="12"/>
-                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#16a34a" stroke-width="12" 
-                                                stroke-dasharray="298" stroke-dashoffset="15" stroke-linecap="round"
-                                                transform="rotate(-90 60 60)"/>
-                                    </svg>
-                                    <div class="chart-percentage">95%</div>
+                            <div class="stat-info">
+                                <h3>95%</h3>
+                                <p>Attendance Rate</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 95%"></div>
                                 </div>
-                                <div class="attendance-details">
-                                    <div class="attendance-item"><span class="dot present"></span><span>Present: <strong>180 days</strong></span></div>
-                                    <div class="attendance-item"><span class="dot absent"></span><span>Absent: <strong>8 days</strong></span></div>
-                                    <div class="attendance-item"><span class="dot late"></span><span>Late: <strong>2 days</strong></span></div>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card class-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Grade 5-A</h3>
+                                <p>Current Class</p>
+                                <span class="stat-badge">Homeroom: Mrs. Anderson</span>
+                            </div>
+                        </div>
+                        <div class="stat-card balance-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>$450</h3>
+                                <p>Outstanding Balance</p>
+                                <span class="stat-badge warning">Due in 15 days</span>
+                            </div>
+                        </div>
+                        <div class="stat-card performance-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>A-</h3>
+                                <p>Overall Grade</p>
+                                <span class="stat-badge success">Excellent</span>
+                            </div>
+                        </div>
+                        <div class="stat-card messages-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>5</h3>
+                                <p>New Messages</p>
+                                <span class="stat-badge">3 unread</span>
+                            </div>
+                        </div>
+                        <div class="stat-card results-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>3rd</h3>
+                                <p>Class Position</p>
+                                <span class="stat-badge success">Top 10%</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Announcements & Events -->
-                    <div class="content-row">
-                        <!-- Announcements -->
-                        <div class="card">
+                    <!-- Quick Action Buttons -->
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="navigateTo('results')">
+                                <i class="fas fa-file-alt"></i>
+                                <span>View Results</span>
+                            </button>
+                            <button class="action-btn" onclick="navigateTo('payments')">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Pay Fees</span>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Download Report</span>
+                            </button>
+                            <button class="action-btn" onclick="navigateTo('messages')">
+                                <i class="fas fa-comment"></i>
+                                <span>Contact Teacher</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Charts and Recent Activity -->
+                    <div class="dashboard-grid">
+                        <div class="card chart-card">
                             <div class="card-header">
-                                <h3><i class="fas fa-bullhorn"></i> Latest Announcements</h3>
-                                <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                                <h3><i class="fas fa-chart-line"></i> Performance Trend</h3>
                             </div>
-                            <div class="announcements-list">
-                                <div class="announcement-item unread">
-                                    <div class="announcement-icon"><i class="fas fa-calendar-alt"></i></div>
-                                    <div class="announcement-content">
-                                        <p><strong>Parent-Teacher Meeting</strong> scheduled for March 15th at 4:00 PM.</p>
-                                        <span class="announcement-time">2 hours ago</span>
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-chart-pie"></i> Subject Performance</h3>
+                            </div>
+                            <canvas id="subjectChart"></canvas>
+                        </div>
+                        <div class="card activity-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                            </div>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="activity-content">
+                                        <p>Attendance marked for today</p>
+                                        <span>2 hours ago</span>
                                     </div>
                                 </div>
-                                <div class="announcement-item unread">
-                                    <div class="announcement-icon"><i class="fas fa-file-alt"></i></div>
-                                    <div class="announcement-content">
-                                        <p><strong>Term 2 Results</strong> have been published.</p>
-                                        <span class="announcement-time">1 day ago</span>
+                                <div class="activity-item">
+                                    <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+                                    <div class="activity-content">
+                                        <p>Math test result uploaded</p>
+                                        <span>Yesterday</span>
                                     </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon"><i class="fas fa-money-bill"></i></div>
+                                    <div class="activity-content">
+                                        <p>Fee payment received</p>
+                                        <span>3 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card announcements-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                            </div>
+                            <div class="announcement-list">
+                                <div class="announcement-item">
+                                    <h4>Parent-Teacher Conference</h4>
+                                    <p>Scheduled for March 15th at 4:00 PM</p>
+                                    <span>2 hours ago</span>
                                 </div>
                                 <div class="announcement-item">
-                                    <div class="announcement-icon"><i class="fas fa-bus"></i></div>
-                                    <div class="announcement-content">
-                                        <p><strong>Field Trip:</strong> Science museum visit on March 20th.</p>
-                                        <span class="announcement-time">3 days ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Events -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-calendar-week"></i> Upcoming Events</h3>
-                                <a href="#" class="view-all">Calendar <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                            <div class="events-list">
-                                <div class="event-item">
-                                    <div class="event-date"><span class="event-day">15</span><span class="event-month">Mar</span></div>
-                                    <div class="event-details">
-                                        <h4>Parent-Teacher Conference</h4>
-                                        <p><i class="fas fa-clock"></i> 4:00 PM - 7:00 PM</p>
-                                    </div>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-date"><span class="event-day">20</span><span class="event-month">Mar</span></div>
-                                    <div class="event-details">
-                                        <h4>Science Field Trip</h4>
-                                        <p><i class="fas fa-clock"></i> 9:00 AM - 2:00 PM</p>
-                                    </div>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-date"><span class="event-day">28</span><span class="event-month">Mar</span></div>
-                                    <div class="event-details">
-                                        <h4>End of Term Assembly</h4>
-                                        <p><i class="fas fa-clock"></i> 10:00 AM - 11:30 AM</p>
-                                    </div>
+                                    <h4>Science Fair Competition</h4>
+                                    <p>Students to submit projects by Friday</p>
+                                    <span>1 day ago</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <!-- Academic Results Section -->
+                <section class="content-section" id="resultsSection">
+                    <div class="section-header">
+                        <h2>Academic Results</h2>
+                        <p>View and download your child's academic performance</p>
+                    </div>
+                    
+                    <!-- Result Search Form -->
+                    <div class="card search-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-search"></i> Search Results</h3>
+                        </div>
+                        <div class="search-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Registration Number</label>
+                                    <input type="text" id="regNumber" value="STD2025001" placeholder="Enter registration number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Class</label>
+                                    <select id="classSelect">
+                                        <option value="">Select Class</option>
+                                        <option value="5">Grade 5</option>
+                                        <option value="6">Grade 6</option>
+                                        <option value="7">Grade 7</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    <select id="yearSelect">
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Term/Semester</label>
+                                    <select id="termSelect">
+                                        <option value="1">Term 1</option>
+                                        <option value="2">Term 2</option>
+                                        <option value="3">Term 3</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn-search" onclick="searchResults()">
+                                        <i class="fas fa-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Slip -->
+                    <div class="card result-slip" id="resultSlip">
+                        <div class="result-header">
+                            <div class="school-logo-section">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h2>SmartSchool Academy</h2>
+                                <p>Nurturing Minds, Building Futures</p>
+                            </div>
+                            <div class="result-title">
+                                <h3>Academic Result Slip</h3>
+                                <p>Term 2, 2024</p>
+                            </div>
+                        </div>
+                        
+                        <div class="student-info-grid">
+                            <div class="info-item">
+                                <label>Student Name:</label>
+                                <span>Emily Johnson</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Registration No:</label>
+                                <span>STD2025001</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Class:</label>
+                                <span>Grade 5-A</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Academic Year:</label>
+                                <span>2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>CAT 1</th>
+                                        <th>CAT 2</th>
+                                        <th>Final Exam</th>
+                                        <th>Total</th>
+                                        <th>Grade</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mathematics</td>
+                                        <td>45/50</td>
+                                        <td>48/50</td>
+                                        <td>92/100</td>
+                                        <td>185/200</td>
+                                        <td><span class="grade-badge grade-a">A</span></td>
+                                        <td>Excellent</td>
+                                    </tr>
+                                    <tr>
+                                        <td>English</td>
+                                        <td>42/50</td>
+                                        <td>44/50</td>
+                                        <td>88/100</td>
+                                        <td>174/200</td>
+                                        <td><span class="grade-badge grade-b">B+</span></td>
+                                        <td>Very Good</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Science</td>
+                                        <td>46/50</td>
+                                        <td>45/50</td>
+                                        <td>90/100</td>
+                                        <td>181/200</td>
+                                        <td><span class="grade-badge grade-a">A-</span></td>
+                                        <td>Excellent</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Social Studies</td>
+                                        <td>40/50</td>
+                                        <td>43/50</td>
+                                        <td>85/100</td>
+                                        <td>168/200</td>
+                                        <td><span class="grade-badge grade-b">B</span></td>
+                                        <td>Good</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Art & Craft</td>
+                                        <td>48/50</td>
+                                        <td>49/50</td>
+                                        <td>95/100</td>
+                                        <td>192/200</td>
+                                        <td><span class="grade-badge grade-a">A+</span></td>
+                                        <td>Outstanding</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4"><strong>Total Average</strong></td>
+                                        <td><strong>900/1000</strong></td>
+                                        <td><strong>A-</strong></td>
+                                        <td><strong>Excellent</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
+                        <div class="result-summary">
+                            <div class="summary-item">
+                                <span>Average Score:</span>
+                                <strong>90%</strong>
+                            </div>
+                            <div class="summary-item">
+                                <span>Class Position:</span>
+                                <strong>3rd out of 30</strong>
+                            </div>
+                            <div class="summary-item">
+                                <span>Overall Grade:</span>
+                                <strong>A-</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-remarks">
+                            <div class="remark">
+                                <h4>Teacher's Remarks:</h4>
+                                <p>Emily has shown excellent performance this term. She is attentive in class and completes her assignments on time. Keep up the good work!</p>
+                            </div>
+                            <div class="remark">
+                                <h4>Principal's Remarks:</h4>
+                                <p>Congratulations on a great performance. Continue to strive for excellence.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="result-actions">
+                            <button class="btn-primary"><i class="fas fa-download"></i> Download PDF</button>
+                            <button class="btn-secondary"><i class="fas fa-print"></i> Print Result</button>
+                            <button class="btn-secondary"><i class="fas fa-share"></i> Share Result</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Performance Charts -->
+                    <div class="charts-row">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Performance Analysis</h3>
+                            </div>
+                            <canvas id="performanceAnalysisChart"></canvas>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Term Comparison</h3>
+                            </div>
+                            <canvas id="termComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Attendance Section -->
+                <section class="content-section" id="attendanceSection">
+                    <div class="section-header">
+                        <h2>Attendance Records</h2>
+                        <p>Monitor your child's attendance and punctuality</p>
+                    </div>
+                    
+                    <div class="attendance-stats-grid">
+                        <div class="attendance-stat-card present">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>180</h3>
+                            <p>Days Present</p>
+                        </div>
+                        <div class="attendance-stat-card absent">
+                            <i class="fas fa-times-circle"></i>
+                            <h3>8</h3>
+                            <p>Days Absent</p>
+                        </div>
+                        <div class="attendance-stat-card late">
+                            <i class="fas fa-clock"></i>
+                            <h3>2</h3>
+                            <p>Times Late</p>
+                        </div>
+                        <div class="attendance-stat-card percentage">
+                            <i class="fas fa-percentage"></i>
+                            <h3>95%</h3>
+                            <p>Attendance Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="attendance-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Monthly Attendance Overview</h3>
+                            </div>
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Attendance Calendar</h3>
+                            </div>
+                            <div class="calendar" id="attendanceCalendar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Attendance History</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="attendance-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Status</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceTableBody">
+                                    <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fee Payments Section -->
+                <section class="content-section" id="paymentsSection">
+                    <div class="section-header">
+                        <h2>Fee Payments</h2>
+                        <p>Manage school fees and payment history</p>
+                    </div>
+                    
+                    <div class="payment-summary-grid">
+                        <div class="payment-card total">
+                            <h4>Total Fees</h4>
+                            <h2>$2,500</h2>
+                            <p>For Term 2, 2024</p>
+                        </div>
+                        <div class="payment-card paid">
+                            <h4>Total Paid</h4>
+                            <h2>$2,050</h2>
+                            <p>82% Complete</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="payment-card balance">
+                            <h4>Outstanding Balance</h4>
+                            <h2>$450</h2>
+                            <p>Due by: March 30, 2024</p>
+                        </div>
+                        <div class="payment-card next">
+                            <h4>Next Payment</h4>
+                            <h2>$450</h2>
+                            <p>Due in 15 days</p>
+                            <button class="btn-pay-now">Pay Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Fee Structure - Term 2, 2024</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="fee-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fee Item</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Due Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tuition Fee</td>
+                                        <td>$1,500</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td>Jan 15, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Activity Fee</td>
+                                        <td>$300</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td>Jan 15, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Library Fee</td>
+                                        <td>$150</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td>Jan 15, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Computer Lab Fee</td>
+                                        <td>$100</td>
+                                        <td><span class="status-badge paid">Paid</span></td>
+                                        <td>Feb 1, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Examination Fee</td>
+                                        <td>$250</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td>Mar 30, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sports Fee</td>
+                                        <td>$200</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td>Mar 30, 2024</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Payment History</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="payment-history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Receipt No</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Payment Method</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>REC-2024-001</td>
+                                        <td>Jan 5, 2024</td>
+                                        <td>$1,950</td>
+                                        <td>Bank Transfer</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td><button class="btn-download-receipt"><i class="fas fa-download"></i> Receipt</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>REC-2024-045</td>
+                                        <td>Feb 1, 2024</td>
+                                        <td>$100</td>
+                                        <td>Credit Card</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                        <td><button class="btn-download-receipt"><i class="fas fa-download"></i> Receipt</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages Section -->
+                <section class="content-section" id="messagesSection">
+                    <div class="section-header">
+                        <h2>Messages</h2>
+                        <p>Communicate with teachers and school administration</p>
+                    </div>
+                    
+                    <div class="messages-container">
+                        <div class="messages-sidebar">
+                            <div class="messages-search">
+                                <input type="text" placeholder="Search messages...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="message-contacts">
+                                <div class="contact-item active">
+                                    <img src="https://ui-avatars.com/api/?name=Mrs+Anderson&size=40" alt="Teacher">
+                                    <div class="contact-info">
+                                        <h4>Mrs. Anderson</h4>
+                                        <p>Math Teacher</p>
+                                        <span class="unread-count">2</span>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <img src="https://ui-avatars.com/api/?name=Mr+Smith&size=40" alt="Teacher">
+                                    <div class="contact-info">
+                                        <h4>Mr. Smith</h4>
+                                        <p>Science Teacher</p>
+                                        <span class="unread-count">1</span>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <img src="https://ui-avatars.com/api/?name=Admin+Office&size=40" alt="Admin">
+                                    <div class="contact-info">
+                                        <h4>Admin Office</h4>
+                                        <p>School Administration</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-compose">
+                                <i class="fas fa-pen"></i> Compose
+                            </button>
+                        </div>
+                        
+                        <div class="messages-chat">
+                            <div class="chat-header">
+                                <img src="https://ui-avatars.com/api/?name=Mrs+Anderson&size=40" alt="Teacher">
+                                <div>
+                                    <h4>Mrs. Anderson</h4>
+                                    <p>Online</p>
+                                </div>
+                            </div>
+                            <div class="chat-messages">
+                                <div class="message received">
+                                    <p>Hello Mrs. Johnson, Emily has been doing great in Math class. She scored 95% in the recent test.</p>
+                                    <span>10:30 AM</span>
+                                </div>
+                                <div class="message sent">
+                                    <p>Thank you, Mrs. Anderson! That's wonderful to hear. Is there anything she needs to improve on?</p>
+                                    <span>10:32 AM</span>
+                                </div>
+                                <div class="message received">
+                                    <p>She could work on her problem-solving speed, but overall she's among the top students. Keep encouraging her!</p>
+                                    <span>10:35 AM</span>
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" placeholder="Type your message...">
+                                <button><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section class="content-section" id="profileSection">
+                    <div class="section-header">
+                        <h2>Profile Settings</h2>
+                        <p>Manage your account and preferences</p>
+                    </div>
+                    
+                    <div class="profile-grid">
+                        <div class="card profile-card">
+                            <div class="profile-header">
+                                <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&size=100&background=2563eb&color=fff" alt="Profile">
+                                <button class="btn-change-photo"><i class="fas fa-camera"></i> Change Photo</button>
+                            </div>
+                            <div class="profile-details">
+                                <h3>Sarah Johnson</h3>
+                                <p>Parent/Guardian</p>
+                                <p class="member-since">Member since: January 2023</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Personal Information</h3>
+                                <button class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
+                            </div>
+                            <div class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" value="Sarah Johnson">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" value="sarah.johnson@email.com">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="tel" value="+1 (555) 123-4567">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Relationship</label>
+                                        <select>
+                                            <option>Mother</option>
+                                            <option>Father</option>
+                                            <option>Guardian</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" value="123 Education Street, Learning City">
+                                </div>
+                                <button class="btn-save">Save Changes</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Change Password</h3>
+                            </div>
+                            <div class="password-form">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input type="password" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" placeholder="Enter new password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input type="password" placeholder="Confirm new password">
+                                </div>
+                                <button class="btn-save">Update Password</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Notification Settings</h3>
+                            </div>
+                            <div class="settings-list">
+                                <div class="setting-item">
+                                    <div>
+                                        <h4>Email Notifications</h4>
+                                        <p>Receive email updates about your child's performance</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <h4>SMS Alerts</h4>
+                                        <p>Get text messages for urgent notifications</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <h4>Attendance Alerts</h4>
+                                        <p>Get notified when your child is absent</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-sign-out-alt"></i>
+                <h2>Confirm Logout</h2>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout from the Parent Portal?</p>
+                <div class="session-info">
+                    <p><strong>Logged in as:</strong> Sarah Johnson</p>
+                    <p><strong>Session started:</strong> 2 hours ago</p>
                 </div>
-            </main>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeLogoutModal()">Cancel</button>
+                <button class="btn-logout-confirm" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
         </div>
     </div>
 
