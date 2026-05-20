@@ -1,4 +1,4 @@
-// index.js - School Management System Interactions
+// index.js - School Management System with Carousel & Gallery Interactions
 
 document.addEventListener('DOMContentLoaded', () => {
   // ----- DOM Elements -----
@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarOverlay = document.getElementById('sidebarOverlay');
   const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
   const statNumbers = document.querySelectorAll('.stat-number');
+
+  // Carousel elements
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prevArrow = document.getElementById('prevArrow');
+  const nextArrow = document.getElementById('nextArrow');
+  let currentSlide = 0;
+  let autoSlideInterval;
 
   // ----- Navbar scroll effect: transparent -> solid -----
   window.addEventListener('scroll', () => {
@@ -23,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const openSidebar = () => {
     sidebar.classList.add('active');
     sidebarOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // prevent background scroll
+    document.body.style.overflow = 'hidden';
   };
 
   const closeSidebar = () => {
@@ -41,12 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Click on overlay closes sidebar
   sidebarOverlay.addEventListener('click', closeSidebar);
 
-  // Close sidebar when a navigation link is clicked (smooth scroll then close)
+  // Close sidebar when a navigation link is clicked
   navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      // Allow default anchor behavior for internal links
+    link.addEventListener('click', () => {
       closeSidebar();
-      // Optional: smooth scroll handled by CSS scroll-behavior or manually if needed
     });
   });
 
@@ -57,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ----- Smooth scrolling for anchor links (additional safety) -----
+  // ----- Smooth scrolling for anchor links -----
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -69,6 +75,79 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ----- Carousel Functions -----
+  const showSlide = (index) => {
+    // Remove active class from all slides and dots
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Add active class to current slide and dot
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlide = index;
+  };
+
+  const nextSlide = () => {
+    let newIndex = currentSlide + 1;
+    if (newIndex >= slides.length) {
+      newIndex = 0;
+    }
+    showSlide(newIndex);
+  };
+
+  const prevSlide = () => {
+    let newIndex = currentSlide - 1;
+    if (newIndex < 0) {
+      newIndex = slides.length - 1;
+    }
+    showSlide(newIndex);
+  };
+
+  const startAutoSlide = () => {
+    autoSlideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+  };
+
+  const stopAutoSlide = () => {
+    clearInterval(autoSlideInterval);
+  };
+
+  // Event listeners for carousel
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => {
+      prevSlide();
+      stopAutoSlide();
+      startAutoSlide(); // Restart timer after manual navigation
+    });
+  }
+
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => {
+      nextSlide();
+      stopAutoSlide();
+      startAutoSlide();
+    });
+  }
+
+  // Dot navigation
+  dots.forEach(dot => {
+    dot.addEventListener('click', function() {
+      const slideIndex = parseInt(this.getAttribute('data-slide'));
+      showSlide(slideIndex);
+      stopAutoSlide();
+      startAutoSlide();
+    });
+  });
+
+  // Pause auto-slide when hovering over hero section
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    heroSection.addEventListener('mouseenter', stopAutoSlide);
+    heroSection.addEventListener('mouseleave', startAutoSlide);
+  }
+
+  // Start auto-slide
+  startAutoSlide();
 
   // ----- Animated counters for Statistics Section -----
   const animateCounters = () => {
@@ -108,8 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(statsSection);
   }
 
-  // ----- Scroll-triggered card animations (simple fade-up class toggling) -----
-  const animatedElements = document.querySelectorAll('.feature-card, .step-card, .testimonial-card, .stat-item');
+  // ----- Scroll-triggered card animations -----
+  const animatedElements = document.querySelectorAll('.feature-card, .step-card, .testimonial-card, .stat-item, .gallery-item');
   
   const scrollRevealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -138,4 +217,63 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ----- Gallery Image Click to Enlarge (Simple Lightbox Effect) -----
+  const galleryImages = document.querySelectorAll('.gallery-item img');
+  galleryImages.forEach(img => {
+    img.addEventListener('click', function() {
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        animation: fadeIn 0.3s ease;
+      `;
+
+      // Create enlarged image
+      const enlargedImg = document.createElement('img');
+      enlargedImg.src = this.src;
+      enlargedImg.style.cssText = `
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        animation: zoomIn 0.3s ease;
+      `;
+
+      overlay.appendChild(enlargedImg);
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+
+      // Close on click
+      overlay.addEventListener('click', () => {
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.remove();
+          document.body.style.overflow = '';
+        }, 200);
+      });
+
+      // Close on Escape key
+      const closeOnEscape = (e) => {
+        if (e.key === 'Escape') {
+          overlay.remove();
+          document.body.style.overflow = '';
+          document.removeEventListener('keydown', closeOnEscape);
+        }
+      };
+      document.addEventListener('keydown', closeOnEscape);
+    });
+  });
+
+  console.log('SmartSchool Homepage with Carousel & Gallery initialized successfully.');
 });

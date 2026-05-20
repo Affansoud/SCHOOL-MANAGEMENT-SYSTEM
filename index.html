@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
   <!-- Font Awesome 6 icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts: modern typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="css/index.css">
 </head>
@@ -39,10 +38,10 @@
       </button>
     </div>
     <ul class="sidebar-nav">
-      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="about.html" class="nav-link">About Us</a></li>
       <li><a href="contact.html" class="nav-link">Contact Us</a></li>
-      <li><a href="aplication.html" class="nav-link">Application</a></li>
+      <li><a href="application.html" class="nav-link">Application</a></li>
       <li><a href="track.html" class="nav-link">Track Application</a></li>
       <li><a href="parent-panel.html" class="nav-link panel-link"><i class="fas fa-user-friends"></i> Parent Panel</a></li>
       <li><a href="teacher-panel.html" class="nav-link panel-link"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a></li>
@@ -51,17 +50,167 @@
   </nav>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section with Image Carousel -->
     <section class="hero" id="home">
-      <div class="hero-overlay"></div>
-      <div class="container hero-content">
-        <h1 class="hero-title">School Management System</h1>
-        <p class="hero-subtitle">Empowering educators, students, and parents with a seamless digital experience. Manage attendance, results, payments, and communication in one intelligent platform.</p>
-        <div class="hero-buttons">
-          <a href="parent-panel.html" class="btn btn-primary"><i class="fas fa-user-friends"></i> Parent Panel</a>
-          <a href="teacher-panel.html" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a>
-          <a href="admin-panel.html" class="btn btn-accent"><i class="fas fa-user-shield"></i> Admin Panel</a>
-          <a href="aplication.html" class="btn btn-outline-light"><i class="fas fa-pen"></i> Apply Now</a>
+      <div class="hero-slider">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="hero-title">School Management System</h1>
+            <p class="hero-subtitle">Empowering educators, students, and parents with a seamless digital experience. Manage attendance, results, payments, and communication in one intelligent platform.</p>
+            <div class="hero-buttons">
+              <a href="parent-panel.html" class="btn btn-primary"><i class="fas fa-user-friends"></i> Parent Panel</a>
+              <a href="teacher-panel.html" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a>
+              <a href="admin-panel.html" class="btn btn-accent"><i class="fas fa-user-shield"></i> Admin Panel</a>
+              <a href="application.html" class="btn btn-outline-light"><i class="fas fa-pen"></i> Apply Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90910e94e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="hero-title">Empower Young Minds</h1>
+            <p class="hero-subtitle">Join thousands of schools worldwide that trust our platform to deliver quality education and streamline administrative tasks.</p>
+            <div class="hero-buttons">
+              <a href="parent-panel.html" class="btn btn-primary"><i class="fas fa-user-friends"></i> Parent Panel</a>
+              <a href="teacher-panel.html" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a>
+              <a href="admin-panel.html" class="btn btn-accent"><i class="fas fa-user-shield"></i> Admin Panel</a>
+              <a href="application.html" class="btn btn-outline-light"><i class="fas fa-pen"></i> Apply Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+          <div class="hero-overlay"></div>
+          <div class="container hero-content">
+            <h1 class="hero-title">Digital Learning Excellence</h1>
+            <p class="hero-subtitle">Transform your school with cutting-edge technology. Real-time tracking, smart analytics, and seamless communication.</p>
+            <div class="hero-buttons">
+              <a href="parent-panel.html" class="btn btn-primary"><i class="fas fa-user-friends"></i> Parent Panel</a>
+              <a href="teacher-panel.html" class="btn btn-secondary"><i class="fas fa-chalkboard-teacher"></i> Teacher Panel</a>
+              <a href="admin-panel.html" class="btn btn-accent"><i class="fas fa-user-shield"></i> Admin Panel</a>
+              <a href="application.html" class="btn btn-outline-light"><i class="fas fa-pen"></i> Apply Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Carousel Navigation -->
+      <div class="carousel-nav">
+        <button class="carousel-dot active" data-slide="0"></button>
+        <button class="carousel-dot" data-slide="1"></button>
+        <button class="carousel-dot" data-slide="2"></button>
+      </div>
+      <button class="carousel-arrow prev-arrow" id="prevArrow"><i class="fas fa-chevron-left"></i></button>
+      <button class="carousel-arrow next-arrow" id="nextArrow"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <!-- School Life Gallery Section -->
+    <section class="gallery-section section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>School Life Gallery</h2>
+          <p>Explore moments from our vibrant school community</p>
+        </div>
+        
+        <!-- Image Gallery Table -->
+        <div class="gallery-table-wrapper">
+          <table class="gallery-table">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  <i class="fas fa-images"></i> Our School in Pictures
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Students in library" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Modern Library</h4>
+                      <p>Students exploring knowledge</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Science laboratory" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Science Lab</h4>
+                      <p>Hands-on experiments</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Graduation ceremony" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Graduation Day</h4>
+                      <p>Celebrating achievements</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Art class" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Creative Arts</h4>
+                      <p>Unleashing creativity</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Sports field" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Sports Ground</h4>
+                      <p>Building teamwork</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="C:\Users\Affan Soud ibrahim\Desktop\our system\SMS\image\1.png" alt="Computer lab" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Computer Lab</h4>
+                      <p>Digital learning</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classroom" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Smart Classroom</h4>
+                      <p>Interactive learning</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Music room" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Music Room</h4>
+                      <p>Harmony in learning</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafeteria" loading="lazy">
+                    <div class="gallery-caption">
+                      <h4>Cafeteria</h4>
+                      <p>Healthy meals</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -218,7 +367,7 @@
         <h2>Join Our Smart School System Today</h2>
         <p>Transform your school management experience with digital efficiency and real‑time collaboration.</p>
         <div class="cta-buttons">
-          <a href="aplication.html" class="btn btn-light"><i class="fas fa-pen"></i> Apply Now</a>
+          <a href="application.html" class="btn btn-light"><i class="fas fa-pen"></i> Apply Now</a>
           <a href="contact.html" class="btn btn-outline-light">Contact Us</a>
         </div>
       </div>
@@ -241,10 +390,10 @@
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Application</a></li>
-          <li><a href="#">Track Status</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="application.html">Application</a></li>
+          <li><a href="track.html">Track Status</a></li>
         </ul>
       </div>
       <div class="footer-col">
