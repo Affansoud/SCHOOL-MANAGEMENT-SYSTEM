@@ -1,21 +1,20 @@
 /**
  * ============================================================
- * teacher-auth-system.js
+ * teacher-panel.js
  * Complete Teacher Authentication System
  * Features:
  * - DYNAMIC OTP generation (new code every time) - VISIBLE ON SCREEN
  * - Professional login with validation
  * - Session management with localStorage/sessionStorage
- * - Full teacher dashboard
+ * - Full teacher dashboard with sidebar navigation
  * - Logout with session cleanup
- * - NO blinking, NO infinite loops, NO auto-refresh
  * ============================================================
  */
 
 (function() {
     'use strict';
 
-    // ==================== DEMO CREDENTIALS (NOT DISPLAYED OPENLY) ====================
+    // ==================== DEMO CREDENTIALS ====================
     const VALID_CREDENTIALS = {
         registrationNumber: 'TCH2025001',
         email: 'teacher@smartschool.com',
@@ -23,12 +22,11 @@
     };
 
     // ==================== GLOBAL STATE ====================
-    let currentPage = 'login';
     let isProcessing = false;
     let otpTimerInterval = null;
     let resendTimerInterval = null;
     let otpExpiryTime = null;
-    let currentOtp = null; // DYNAMIC - generated on each attempt
+    let currentOtp = null;
 
     // ==================== DOM REFERENCES - LOGIN PAGE ====================
     const loginPage = document.getElementById('loginPage');
@@ -36,8 +34,6 @@
     const loadingOverlay = document.getElementById('loadingOverlay');
     const loadingText = document.getElementById('loadingText');
     const successOverlay = document.getElementById('successOverlay');
-    const successTitle = document.getElementById('successTitle');
-    const successMessage = document.getElementById('successMessage');
     const progressFill = document.getElementById('progressFill');
     
     const loginFormSection = document.getElementById('loginFormSection');
@@ -69,7 +65,7 @@
     const resendTimerDisplay = document.getElementById('resendTimerDisplay');
     const otpTimerDisplay = document.getElementById('otpTimerDisplay');
     
-    // NEW: OTP Display Box elements
+    // OTP Display Box elements
     const otpDisplayBox = document.getElementById('otpDisplayBox');
     const otpDisplayCode = document.getElementById('otpDisplayCode');
 
@@ -88,6 +84,10 @@
 
     // ==================== INITIALIZATION ====================
     function init() {
+        console.log('%c🔐 SmartSchool Teacher Auth System Initialized', 'color: #4f46e5; font-weight: bold; font-size: 14px;');
+        console.log('%c💡 Click "Use Demo Credentials" button for test login', 'color: #f97316; font-weight: bold;');
+        console.log('%c📧 OTP will be displayed VISIBLY on the verification screen', 'color: #10b981; font-weight: bold;');
+        
         // Check existing session
         if (checkExistingSession()) {
             showDashboardPage();
@@ -111,15 +111,10 @@
         if (teacherRegNumber) {
             setTimeout(() => teacherRegNumber.focus(), 500);
         }
-        
-        console.log('%c🔐 SmartSchool Teacher Auth System Initialized', 'color: #4f46e5; font-weight: bold; font-size: 14px;');
-        console.log('%c💡 Click "Use Demo Credentials" button for test login', 'color: #f97316; font-weight: bold;');
-        console.log('%c📧 OTP will be displayed VISIBLY on the verification screen', 'color: #10b981; font-weight: bold;');
     }
 
     // ==================== DYNAMIC OTP GENERATION ====================
     function generateOTP() {
-        // Generate random 6-digit OTP
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         console.log(`%c========================================`, 'color: #10b981;');
         console.log(`%c📧 NEW OTP GENERATED: ${otp}`, 'color: #10b981; font-weight: bold; font-size: 16px;');
@@ -133,10 +128,9 @@
         return otp;
     }
 
-    // ==================== UPDATE OTP DISPLAY (NEW FUNCTION) ====================
+    // ==================== UPDATE OTP DISPLAY ====================
     function updateOtpDisplay(otp) {
         if (otpDisplayCode) {
-            // Format OTP with spaces for readability
             const formattedOtp = otp.split('').join(' ');
             otpDisplayCode.textContent = formattedOtp;
             
@@ -144,19 +138,16 @@
             otpDisplayCode.classList.remove('updated');
             void otpDisplayCode.offsetWidth; // Trigger reflow
             otpDisplayCode.classList.add('updated');
-            
-            console.log(`%c✅ OTP Display updated: ${otp}`, 'color: #4f46e5;');
         }
         
-        // Also show the display box if it was hidden
         if (otpDisplayBox) {
             otpDisplayBox.style.display = 'block';
+            otpDisplayBox.style.opacity = '1';
         }
     }
 
     // ==================== SESSION MANAGEMENT ====================
     function checkExistingSession() {
-        // Check sessionStorage
         const sessionToken = sessionStorage.getItem('teacherSessionToken');
         const sessionExpiry = sessionStorage.getItem('teacherSessionExpiry');
         
@@ -169,7 +160,6 @@
             }
         }
         
-        // Check localStorage for Remember Me
         const rememberData = localStorage.getItem('teacherRememberMe');
         if (rememberData) {
             try {
@@ -193,7 +183,7 @@
 
     function createSession() {
         const sessionToken = generateToken();
-        const sessionDuration = 60 * 60 * 1000; // 60 minutes for teachers
+        const sessionDuration = 60 * 60 * 1000; // 60 minutes
         const expiry = Date.now() + sessionDuration;
         
         const userData = {
@@ -241,59 +231,48 @@
 
     // ==================== PAGE NAVIGATION ====================
     function showLoginPage() {
-        currentPage = 'login';
         loginPage.style.display = 'flex';
         dashboardPage.style.display = 'none';
         document.body.style.background = '';
     }
 
     function showDashboardPage() {
-        currentPage = 'dashboard';
         loginPage.style.display = 'none';
         dashboardPage.style.display = 'block';
         document.body.style.background = '#f1f5f9';
+        document.body.style.minHeight = '100vh';
         
-        // Refresh dashboard data
         setCurrentDate();
         loadUserData();
     }
 
     // ==================== LOGIN EVENT LISTENERS ====================
     function setupLoginEventListeners() {
-        // Login form
         if (loginFormElement) {
             loginFormElement.addEventListener('submit', handleLoginSubmit);
         }
         
-        // OTP form
         if (otpFormElement) {
             otpFormElement.addEventListener('submit', handleOtpSubmit);
         }
         
-        // Password toggle
         if (togglePasswordBtn) {
             togglePasswordBtn.addEventListener('click', handlePasswordToggle);
         }
         
-        // Back to login
         if (backToLoginButton) {
             backToLoginButton.addEventListener('click', handleBackToLogin);
         }
         
-        // Resend OTP
         if (resendOtpButton) {
             resendOtpButton.addEventListener('click', handleResendOtp);
         }
         
-        // Demo credentials button
         if (btnDemoCredentials) {
             btnDemoCredentials.addEventListener('click', handleDemoCredentials);
         }
         
-        // OTP inputs
         setupOtpInputs();
-        
-        // Real-time validation
         setupRealTimeValidation();
     }
 
@@ -303,17 +282,14 @@
         if (teacherEmail) teacherEmail.value = VALID_CREDENTIALS.email;
         if (teacherPassword) teacherPassword.value = VALID_CREDENTIALS.password;
         
-        // Mark fields as valid
         markFieldSuccess(teacherRegNumber);
         markFieldSuccess(teacherEmail);
         markFieldSuccess(teacherPassword);
         
-        // Clear errors
         if (regNumError) regNumError.textContent = '';
         if (emailError) emailError.textContent = '';
         if (passwordError) passwordError.textContent = '';
         
-        // Show brief animation on the button
         if (btnDemoCredentials) {
             btnDemoCredentials.style.transform = 'scale(0.95)';
             setTimeout(() => {
@@ -321,33 +297,24 @@
             }, 150);
         }
         
-        // Focus password field
         if (teacherPassword) teacherPassword.focus();
         
-        showNotification('Demo credentials auto-filled! Click Sign In to continue.', 'info');
-        console.log('%c📝 Demo credentials auto-filled', 'color: #f97316; font-weight: bold;');
+        showToast('Demo credentials auto-filled! Click Sign In to continue.', 'info');
     }
 
     // ==================== LOGIN HANDLER ====================
     function handleLoginSubmit(e) {
-        // CRITICAL: Prevent default form submission
         e.preventDefault();
         e.stopPropagation();
         
-        // Prevent double submission
         if (isProcessing) return;
         
-        // Validate
         if (!validateLoginForm()) return;
         
-        // Start processing
         isProcessing = true;
         disableButton(loginSubmitBtn);
-        
-        // Show loading
         showLoading('Verifying credentials...');
         
-        // Simulate API call
         setTimeout(() => {
             const regNum = teacherRegNumber.value.trim().toUpperCase();
             const email = teacherEmail.value.trim().toLowerCase();
@@ -357,21 +324,17 @@
                 email === VALID_CREDENTIALS.email &&
                 pass === VALID_CREDENTIALS.password) {
                 
-                // Success - Generate NEW dynamic OTP
                 currentOtp = generateOTP();
-                
-                // Store in session for verification
                 sessionStorage.setItem('teacherCurrentOtp', currentOtp);
                 sessionStorage.setItem('teacherEmailForOtp', email);
                 
                 hideLoading();
                 switchToOtpForm();
-                showNotification('Verification code generated! It is displayed above.', 'success');
+                showToast('Verification code generated! It is displayed above.', 'success');
                 
             } else {
-                // Invalid
                 hideLoading();
-                showNotification('Invalid credentials. Please check and try again.', 'error');
+                showToast('Invalid credentials. Please check and try again.', 'error');
                 shakeElement(loginFormElement);
             }
             
@@ -383,58 +346,47 @@
 
     // ==================== OTP HANDLER ====================
     function handleOtpSubmit(e) {
-        // CRITICAL: Prevent default form submission
         e.preventDefault();
         e.stopPropagation();
         
-        // Prevent double submission
         if (isProcessing) return;
         
         const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
         clearOtpError();
         
-        // Get current OTP from session or fallback to generated
         const validOtp = sessionStorage.getItem('teacherCurrentOtp') || currentOtp;
         
-        // Validate OTP length
         if (enteredOtp.length !== 6) {
             showOtpError('Please enter all 6 digits of the verification code');
             shakeElement(otpInputContainer);
             return;
         }
         
-        // Check expiry (2 minutes = 120 seconds)
         if (otpExpiryTime && Date.now() > otpExpiryTime) {
             showOtpError('Verification code has expired. Please request a new one.');
             if (otpTimerDisplay) otpTimerDisplay.style.background = '#fee2e2';
-            // Hide the expired OTP display
             if (otpDisplayBox) otpDisplayBox.style.opacity = '0.5';
             return;
         }
         
-        // Start processing
         isProcessing = true;
         disableButton(verifyOtpSubmitBtn);
         showLoading('Verifying code...');
         
         setTimeout(() => {
             if (enteredOtp === validOtp) {
-                // SUCCESS - OTP Verified
                 hideLoading();
                 createSession();
                 showSuccessOverlay();
                 
-                // Clean up OTP from session
                 sessionStorage.removeItem('teacherCurrentOtp');
                 
-                // Redirect to dashboard after animation
                 setTimeout(() => {
                     hideSuccessOverlay();
                     showDashboardPage();
                 }, 2500);
                 
             } else {
-                // Invalid OTP
                 hideLoading();
                 showOtpError('Invalid verification code. Please check and try again.');
                 shakeElement(otpInputContainer);
@@ -503,9 +455,6 @@
     function showFieldError(element, message) {
         if (element) {
             element.textContent = message;
-            element.style.animation = 'none';
-            element.offsetHeight;
-            element.style.animation = 'shake 0.3s ease';
         }
     }
 
@@ -534,7 +483,7 @@
 
     function showOtpError(message) {
         if (otpError) otpError.textContent = message;
-        showNotification(message, 'error');
+        showToast(message, 'error');
     }
 
     function clearOtpError() {
@@ -566,16 +515,6 @@
                     otpInputs[index - 1].focus();
                     otpInputs[index - 1].value = '';
                     otpInputs[index - 1].classList.remove('filled');
-                    e.preventDefault();
-                }
-                
-                if (e.key === 'ArrowLeft' && index > 0) {
-                    otpInputs[index - 1].focus();
-                    e.preventDefault();
-                }
-                
-                if (e.key === 'ArrowRight' && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
                     e.preventDefault();
                 }
             });
@@ -620,16 +559,12 @@
             otpSentToEmail.textContent = `Sent to: ${email}`;
         }
         
-        // Make sure OTP display box is visible
         if (otpDisplayBox) {
             otpDisplayBox.style.display = 'block';
             otpDisplayBox.style.opacity = '1';
         }
         
-        // Start OTP timer (2 minutes = 120 seconds)
         startOtpTimer(120);
-        
-        // Start resend cooldown (30 seconds)
         startResendCooldown(30);
         
         if (otpInputs[0]) {
@@ -645,7 +580,6 @@
         sessionStorage.removeItem('teacherCurrentOtp');
         currentOtp = null;
         
-        // Hide OTP display
         if (otpDisplayCode) {
             otpDisplayCode.textContent = '------';
         }
@@ -738,7 +672,6 @@
         showLoading('Generating new code...');
         
         setTimeout(() => {
-            // Generate BRAND NEW OTP
             currentOtp = generateOTP();
             sessionStorage.setItem('teacherCurrentOtp', currentOtp);
             
@@ -746,19 +679,15 @@
             clearOtpInputs();
             clearOtpError();
             
-            // Reset display box opacity
             if (otpDisplayBox) otpDisplayBox.style.opacity = '1';
             if (otpTimerDisplay) otpTimerDisplay.style.background = '';
             
-            // Reset OTP timer (2 minutes)
             startOtpTimer(120);
-            
-            // Reset resend cooldown (30 seconds)
             startResendCooldown(30);
             
             if (otpInputs[0]) otpInputs[0].focus();
             
-            showNotification('New verification code generated!', 'success');
+            showToast('New verification code generated!', 'success');
         }, 1000);
     }
 
@@ -864,15 +793,10 @@
             }
         });
         
-        document.querySelectorAll('.stat-card').forEach(card => {
-            card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px)');
-            card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
-        });
-        
         document.querySelectorAll('.quick-action-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const action = this.querySelector('span').textContent;
-                showNotification(`"${action}" feature will be available soon!`, 'info');
+                showToast(`"${action}" feature will be available soon!`, 'info');
             });
         });
         
@@ -927,7 +851,7 @@
             currentOtp = null;
             
             const msg = document.createElement('div');
-            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:24px 32px;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.2);z-index:9999;font-family:Inter,sans-serif;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;animation:fadeInScale 0.3s ease;';
+            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:24px 32px;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.2);z-index:9999;font-family:Inter,sans-serif;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;';
             msg.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logging out securely...';
             document.body.appendChild(msg);
             
@@ -985,8 +909,6 @@
     }
 
     function showSuccessOverlay() {
-        if (successTitle) successTitle.textContent = 'Authentication Successful!';
-        if (successMessage) successMessage.textContent = 'Redirecting to your teacher dashboard...';
         if (successOverlay) successOverlay.classList.add('active');
         
         if (progressFill) {
@@ -1031,23 +953,13 @@
         }
     }
 
-    function showNotification(message, type) {
+    function showToast(message, type) {
         const notification = document.createElement('div');
         const bgColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : type === 'info' ? '#4f46e5' : '#3b82f6';
         const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle';
         
+        notification.className = `toast-notification ${type}`;
         notification.innerHTML = `<i class="fas fa-${icon}"></i><span>${message}</span>`;
-        notification.style.cssText = `
-            position: fixed; top: 20px; right: 20px;
-            background: ${bgColor}; color: white;
-            padding: 14px 20px; border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            z-index: 2000; display: flex; align-items: center;
-            gap: 10px; font-size: 0.9rem;
-            font-family: 'Inter', sans-serif; font-weight: 500;
-            animation: slideInRight 0.3s ease;
-            max-width: 400px; cursor: pointer;
-        `;
         
         document.body.appendChild(notification);
         
@@ -1060,38 +972,7 @@
         setTimeout(removeNotification, 5000);
     }
 
-    // ==================== ADD ANIMATION STYLES ====================
-    function addAnimationStyles() {
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                20% { transform: translateX(-8px); }
-                40% { transform: translateX(8px); }
-                60% { transform: translateX(-6px); }
-                80% { transform: translateX(6px); }
-            }
-            
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            
-            @keyframes fadeInScale {
-                from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-                to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
     // ==================== STARTUP ====================
-    addAnimationStyles();
     init();
 
 })();
